@@ -136,12 +136,28 @@ class Raycaster {
 	rayX = (player.pY - rayY) * Tan + player.pX;
 	yOffset = MAP_SCALE; xOffset= -yOffset * Tan;
       }//looking down
-      else{ 
+
+      else if ((-(rayAng) < 0.001f) || (-(rayAng) > 2 * PI - 0.001f))
+      {
 	rayX = player.pX; 
+	rayY = player.pY;
+	xOffset = MAP_SCALE;
+	yOffset = 0;
+      }
+      
+      else if ((-(rayAng) > PI - 0.001f) && (-(rayAng) < PI + 0.001f))
+      {
+	rayX = player.pX; 
+	rayY = player.pY;
+	xOffset = - MAP_SCALE;
+	yOffset = 0;
+      }
+
+      else{
+	rayX = player.pX;
 	rayY = player.pY;
 	depth = MAP_X;
       }
-
       while(depth < MAP_X) 
       { 
 	//mX = (int)(rayX) >> 6;
@@ -187,7 +203,7 @@ class Raycaster {
 	yOffset = -xOffset * nTan;
       }
 
-      else if (cos(rayAng) < -0.001)
+      else if (cos(rayAng) < - 0.001)
       { 
 	//rayX = (((int)player.pX >> 6) << 6) - 0.0001; 
 	rayX = (((int) player.pX / MAP_SCALE) * MAP_SCALE) -0.001f;
@@ -196,10 +212,26 @@ class Raycaster {
 	yOffset = -xOffset * nTan;
       }
 
-      else 
-      { 
+      else if( (-(rayAng) > (PI / 2) - 0.001) && (-(rayAng) < (PI / 2) + 0.001f))
+      {
 	rayX = player.pX; 
 	rayY = player.pY; 
+	yOffset = MAP_SCALE;
+	xOffset = 0;
+      }
+
+      else if( (-(rayAng) > (3 * PI / 2) - 0.001f) && ( -(rayAng) < (3 * PI / 2) + 0.001f))
+      {
+	rayX = player.pX; 
+	rayY = player.pY; 
+	yOffset = - MAP_SCALE;
+	xOffset = 0;
+      }
+	
+      else
+      {
+	rayX = player.pX;
+	rayY = player.pY;
 	depth = MAP_X;
       }
 

@@ -4,7 +4,8 @@ Problemas atuais:
 
 - Nao sei como adiconar NPCs ou props com esse método de renderização, mas deve ser possível.  
 
-- Quando um raio sai do jogador e o angulo desse raio é 0,90,180 ou 270 graus fica um buraco.  
+- ~~Quando um raio sai do jogador e o angulo desse raio é 0,90,180 ou 270 graus fica um buraco.~~
+    - Acho que existe a chance dessa correção gerar buffer overflow, mas não está dando.
 
 - Aleatoriamente exite a chance de acontecer um buffer overflow por causa do vector usado no método draw3D da Raycaster, eu acho.  
 
@@ -12,5 +13,5 @@ Problemas atuais:
 
 - A referência do ângulos está meio errada, mas da pra arrumar, se tivermos paciência. Mas funciona igual.  
 
-- O mundo ta renderizando na frenet do mapa.  
+- ~~O mundo ta renderizando na frente do mapa.~~  
 

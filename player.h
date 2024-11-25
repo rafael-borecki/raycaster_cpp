@@ -7,10 +7,6 @@
 #include <math.h>
 #include <string>
 
-#define PI 3.14159265358
-#define RADIAN 57.2958
-#define ONERAD 0.01745
-
 class Player {
   public:
     float pAng;

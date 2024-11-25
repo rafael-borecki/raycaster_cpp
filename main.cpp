@@ -34,7 +34,7 @@ int main() {
     while (gameWindow.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         gameWindow.close();
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         gameWindow.close();
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	printf("\n%f ", fps);

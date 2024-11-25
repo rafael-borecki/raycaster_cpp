@@ -2,8 +2,8 @@
 #include <math.h>
 
 #define PI 3.14159265358
-#define RADIAN 57.2958
-#define ONE_RAD 0.01745
+#define RADIAN 57.2957795131
+#define ONE_RAD 0.01745329251
 
 int SCREEN_HEIGHT = 850;
 int SCREEN_WIDTH  = 1280;
