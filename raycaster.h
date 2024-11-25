@@ -74,7 +74,7 @@ class Raycaster {
       float fixFishEye;
 
       //ISSO NAO DEVERIA ESTAR AQUI
-      map.drawMap(window);
+      //map.drawMap(window);
       for(int i = 30; i > - 30; i--){
 	pAng -= one_rad;
 	fixFishEye = player.pAng + pAng;
@@ -96,18 +96,21 @@ class Raycaster {
 	  nearest.push_back(vertical);
 	}
 	//ISSO NAO DEVERIA ESTAR AQUI
-	window.draw(player.playerSprite);
-	drawLines(window, sf::Vector2f(player.pX, player.pY), nearest.back().coordinates, sf::Color::Yellow);
+	//window.draw(player.playerSprite);
+	//drawLines(window, sf::Vector2f(player.pX, player.pY), nearest.back().coordinates, sf::Color::Yellow);
       }
       return nearest;
     }
 
-    void drawLines(sf::RenderWindow &window, sf::Vector2f playerPos, sf::Vector2f rayPos, sf::Color color)
+    void drawLines(sf::RenderWindow &window, sf::Vector2f playerPos, std::vector<ray> rayPos, sf::Color color)
     {
-      sf::Vertex line[2];
-      line[0] = sf::Vertex(sf::Vector2f(playerPos.x/2, playerPos.y/2),color);
-      line[1] = sf::Vertex(sf::Vector2f(rayPos.x/2, rayPos.y/2),color);
-      window.draw(line,2,sf::Lines);
+      for(int i = 0; i < rayPos.size(); i++)
+      {
+	sf::Vertex line[2];
+	line[0] = sf::Vertex(sf::Vector2f(playerPos.x/2, playerPos.y/2),color);
+	line[1] = sf::Vertex(sf::Vector2f(rayPos.at(i).coordinates.x/2, rayPos.at(i).coordinates.y/2),color);
+	window.draw(line,2,sf::Lines);
+      }
     }
 
 

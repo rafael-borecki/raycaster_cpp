@@ -42,12 +42,15 @@ int main() {
 
     gameWindow.clear(sf::Color{27,115,0});
     gameWindow.draw(skybox);
-
-    raycast.draw3D(gameWindow, raycast.renderLines(gameWindow, player, map));
+    std::vector<ray> render =  raycast.renderLines(gameWindow, player, map);
+    raycast.draw3D(gameWindow, render);
     player.rotatePlayer(map);
     player.updatePlayer(fps);
     //gun.gunDraw(gameWindow, clock, &player);
-    ui.uiDraw(gameWindow,fps /*,player.getAmmo()*/);
+    //map.drawMap(gameWindow);
+    //gameWindow.draw(player.playerSprite);
+    //raycast.drawLines(gameWindow, sf::Vector2f(player.pX, player.pY), render, sf::Color::Yellow);
+    ui.uiDraw(gameWindow,fps, map, raycast, render, player /*,player.getAmmo()*/);
     gameWindow.display();
   }
-}
+  }
