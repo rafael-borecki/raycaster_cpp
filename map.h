@@ -5,6 +5,10 @@
 #include <vector>
 #include "globals.h"
 
+// Funções de geração de mapa
+char* getEmptyMap();
+char* getRandomMap();
+
 class Map {
   public:
 
@@ -14,6 +18,7 @@ class Map {
     char worldMap[MAP_Y * MAP_X + 50];
     
     Map(int id){
+
     	if (id == 1) {
     	    char tempMap[] = {
     	        1, 1, 1, 1, 1, 1, 1, 1,
@@ -27,6 +32,7 @@ class Map {
     	    };
     	    std::copy(std::begin(tempMap), std::end(tempMap), worldMap);
     	} 
+
 		else if (id == 2) {
     	        char tempMap[] = {
     	            1, 0, 0, 0, 0, 0, 0, 1,
@@ -40,6 +46,7 @@ class Map {
 		    };
 		    std::copy(std::begin(tempMap), std::end(tempMap), worldMap);
 		}
+
 		else if (id == 3) {
 		  char tempMap[] = {
 		    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -68,8 +75,50 @@ class Map {
 		    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 		  };
 		  std::copy(std::begin(tempMap), std::end(tempMap), worldMap);
-
+	
 		}
+		
+		else if (id == 4) {
+		  char tempMap[] = {
+		    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		  };
+		  std::copy(std::begin(tempMap), std::end(tempMap), worldMap);
+	
+		}
+
+		else if(id == 5){
+		  char* tempMap = getEmptyMap();
+		  std::copy(tempMap, tempMap + MAP_X*MAP_Y, worldMap);
+		}
+
+		else if(id == 6){
+			char* tempMap = getRandomMap();
+			std::copy(tempMap, tempMap + MAP_X*MAP_Y, worldMap);
+		}
+
     }
 
     void drawMap(sf::RenderWindow &window){
@@ -105,3 +154,38 @@ class Map {
       window.draw(rect);
     }
 };
+
+// Função que gera um mapa vazio (apenas com as paredes laterais)
+char* getEmptyMap(){
+	char* emptyMap = new char[MAP_X*MAP_Y + 50];
+	
+	for(int x = 0; x < MAP_X; x++){
+
+		for(int y = 0; y < MAP_Y; y++){
+			
+			if(x == 0 || x == MAP_X-1 || y == 0 || y == MAP_Y-1)
+				emptyMap[y*MAP_X+x] = 1;
+			
+			else
+				emptyMap[y*MAP_X+x] = 0;
+		}
+	}
+	return emptyMap;
+}
+// Função que gera um mapa aleatório (teste -> função nada útil)
+char* getRandomMap(){
+	char* randomMap = new char[MAP_X*MAP_Y + 50];
+
+	for(int x = 0; x < MAP_X; x++){
+		
+		for(int y = 0; y < MAP_Y; y++){
+			
+			if(x == 0 || x == MAP_X-1 || y == 0 || y == MAP_Y-1)
+				randomMap[y*MAP_X+x] = 1;
+			
+			else
+				randomMap[y*MAP_X+x] = rand() % 6;
+		}
+	}
+	return randomMap;
+}

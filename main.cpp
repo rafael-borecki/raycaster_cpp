@@ -14,7 +14,7 @@ int main() {
   sf::Clock clock;
   float fps = 0;
   
-  int mapId = 3;
+  int mapId = 6;
   Map map(mapId);
 
   Player player(300.f, 300.f);
