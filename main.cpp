@@ -37,7 +37,7 @@ int main() {
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         gameWindow.close();
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::B))
-	printf("\n%f ", fps);
+	    printf("\n%f ", fps);
     }
 
     gameWindow.clear(sf::Color{27,115,0});
@@ -53,4 +53,4 @@ int main() {
     ui.uiDraw(gameWindow,fps, map, raycast, render, player /*,player.getAmmo()*/);
     gameWindow.display();
   }
-  }
+}

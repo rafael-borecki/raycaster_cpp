@@ -21,47 +21,47 @@ class Raycaster {
     {
       for(int i = 0; i < 60; i ++)
       {
-	window.draw(renderStrip(rays.at(i), (i * MAP_SCALE) * SCREEN_WIDTH / (MAP_SCALE * 60), SCREEN_HEIGHT/2));
+		window.draw(renderStrip(rays.at(i), (i * MAP_SCALE) * SCREEN_WIDTH / (MAP_SCALE * 60), SCREEN_HEIGHT/2));
       }
     }
 
     sf::RectangleShape renderStrip(ray nearest, float xPos, float yPos) {
-      sf::RectangleShape rect;
-      rect.setSize(sf::Vector2f(MAP_SCALE, nearest.lineHeight));
-      rect.setOrigin(0, nearest.lineHeight / 4);
-      rect.setPosition(xPos, yPos);
-      
-      if (nearest.color == 1) {
-	rect.setFillColor(sf::Color{92,34,0});
-	if(nearest.horv == 1) {
-	  rect.setFillColor(sf::Color{76,20,0});
-	}
-      }
-      if (nearest.color == 2) {
-	rect.setFillColor(sf::Color{0,255,0});
-	if(nearest.horv == 1) {
-	  rect.setFillColor(sf::Color{0,180,0});
-	}
-      }
-      if (nearest.color == 3) {
-	rect.setFillColor(sf::Color{0,0,255});
-	if(nearest.horv == 1) {
-	  rect.setFillColor(sf::Color{0,0,180});
-	}
-      }
-      if (nearest.color == 4) {
-	rect.setFillColor(sf::Color{255,255,0});
-	if(nearest.horv == 1) {
-	  rect.setFillColor(sf::Color{180,180,0});
-	}
-      }
-      if (nearest.color == 5) {
-	rect.setFillColor(sf::Color{255,0,255});
-	if(nearest.horv == 1) {
-	  rect.setFillColor(sf::Color{180,0,180});
-	}
-      }
-      return rect;
+    	sf::RectangleShape rect;
+    	rect.setSize(sf::Vector2f(MAP_SCALE, nearest.lineHeight));
+    	rect.setOrigin(0, nearest.lineHeight / 4);
+    	rect.setPosition(xPos, yPos);
+	
+    	if (nearest.color == 1) {
+			rect.setFillColor(sf::Color{92,34,0});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{76,20,0});
+			}
+    	  }
+    	if (nearest.color == 2) {
+			rect.setFillColor(sf::Color{0,255,0});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{0,180,0});
+			}
+    	}
+    	if (nearest.color == 3) {
+			rect.setFillColor(sf::Color{0,0,255});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{0,0,180});
+			}
+    	}
+    	if (nearest.color == 4) {
+			rect.setFillColor(sf::Color{255,255,0});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{180,180,0});
+			}
+    	}
+    	if (nearest.color == 5) {
+			rect.setFillColor(sf::Color{255,0,255});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{180,0,180});
+			}
+    	}
+      	return rect;
     }
 
     std::vector<ray> renderLines(sf::RenderWindow &window, Player player, Map map)
@@ -76,28 +76,28 @@ class Raycaster {
       //ISSO NAO DEVERIA ESTAR AQUI
       //map.drawMap(window);
       for(int i = 30; i > - 30; i--){
-	pAng -= one_rad;
-	fixFishEye = player.pAng + pAng;
-	if(fixFishEye < 0) { fixFishEye += 2* PI;}
-	if(fixFishEye > 2 * PI) { fixFishEye -= 2* PI;}
-	horizontal = scanHorizontal(window, player, map,  pAng);
-	vertical   = scanVertical(window, player, map, pAng);
+		pAng -= one_rad;
+		fixFishEye = player.pAng + pAng;
+		if(fixFishEye < 0) { fixFishEye += 2* PI;}
+		if(fixFishEye > 2 * PI) { fixFishEye -= 2* PI;}
+		horizontal = scanHorizontal(window, player, map,  pAng);
+		vertical   = scanVertical(window, player, map, pAng);
 
-	if(horizontal.distance < vertical.distance){
-	  horizontal.distance = horizontal.distance * cos(- fixFishEye);
-	  horizontal.lineHeight = (MAP_SCALE * 1024) / (horizontal.distance);
-	  horizontal.color = map.worldMap[horizontal.index];
-	  nearest.push_back(horizontal);
-	}
-	if(horizontal.distance > vertical.distance){
-	  vertical.distance = vertical.distance * cos(- fixFishEye);
-	  vertical.lineHeight = (MAP_SCALE * 1024) / (vertical.distance);
-	  vertical.color = map.worldMap[vertical.index];
-	  nearest.push_back(vertical);
-	}
-	//ISSO NAO DEVERIA ESTAR AQUI
-	//window.draw(player.playerSprite);
-	//drawLines(window, sf::Vector2f(player.pX, player.pY), nearest.back().coordinates, sf::Color::Yellow);
+		if(horizontal.distance < vertical.distance){
+		  horizontal.distance = horizontal.distance * cos(- fixFishEye);
+		  horizontal.lineHeight = (MAP_SCALE * 1024) / (horizontal.distance);
+		  horizontal.color = map.worldMap[horizontal.index];
+		  nearest.push_back(horizontal);
+		}
+		if(horizontal.distance > vertical.distance){
+		  vertical.distance = vertical.distance * cos(- fixFishEye);
+		  vertical.lineHeight = (MAP_SCALE * 1024) / (vertical.distance);
+		  vertical.color = map.worldMap[vertical.index];
+		  nearest.push_back(vertical);
+		}
+		//ISSO NAO DEVERIA ESTAR AQUI
+		//window.draw(player.playerSprite);
+		//drawLines(window, sf::Vector2f(player.pX, player.pY), nearest.back().coordinates, sf::Color::Yellow);
       }
       return nearest;
     }
@@ -106,10 +106,10 @@ class Raycaster {
     {
       for(int i = 0; i < rayPos.size(); i++)
       {
-	sf::Vertex line[2];
-	line[0] = sf::Vertex(sf::Vector2f(playerPos.x/2, playerPos.y/2),color);
-	line[1] = sf::Vertex(sf::Vector2f(rayPos.at(i).coordinates.x/2, rayPos.at(i).coordinates.y/2),color);
-	window.draw(line,2,sf::Lines);
+		sf::Vertex line[2];
+		line[0] = sf::Vertex(sf::Vector2f(playerPos.x/2, playerPos.y/2),color);
+		line[1] = sf::Vertex(sf::Vector2f(rayPos.at(i).coordinates.x/2, rayPos.at(i).coordinates.y/2),color);
+		window.draw(line,2,sf::Lines);
       }
     }
 
@@ -125,54 +125,57 @@ class Raycaster {
 
       if(sin(rayAng) > 0.001)
       { 
-	//rayY = (((int) player.pY >> 6) << 6 ) - 0.0001;
-	rayY = (((int) player.pY / MAP_SCALE) * MAP_SCALE) - 0.001f;
-	rayX = (player.pY-rayY)*Tan+player.pX; yOffset=-MAP_SCALE; xOffset=-yOffset*Tan;
+		//rayY = (((int) player.pY >> 6) << 6 ) - 0.0001;
+		rayY = (((int) player.pY / MAP_SCALE) * MAP_SCALE) - 0.001f;
+		rayX = (player.pY-rayY)*Tan+player.pX; yOffset=-MAP_SCALE; xOffset=-yOffset*Tan;
       }//looking up 
-      else if(sin(rayAng) < -0.001)
+      
+	  else if(sin(rayAng) < -0.001)
       { 
-	//rayY = (((int) player.pY >> 6) << 6) + MAP_SCALE;
-	rayY = (((int) player.pY / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
-	rayX = (player.pY - rayY) * Tan + player.pX;
-	yOffset = MAP_SCALE; xOffset= -yOffset * Tan;
+		//rayY = (((int) player.pY >> 6) << 6) + MAP_SCALE;
+		rayY = (((int) player.pY / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
+		rayX = (player.pY - rayY) * Tan + player.pX;
+		yOffset = MAP_SCALE; xOffset= -yOffset * Tan;
       }//looking down
 
       else if ((-(rayAng) < 0.001f) || (-(rayAng) > 2 * PI - 0.001f))
       {
-	rayX = player.pX; 
-	rayY = player.pY;
-	xOffset = MAP_SCALE;
-	yOffset = 0;
+		rayX = player.pX; 
+		rayY = player.pY;
+		xOffset = MAP_SCALE;
+		yOffset = 0;
       }
       
       else if ((-(rayAng) > PI - 0.001f) && (-(rayAng) < PI + 0.001f))
       {
-	rayX = player.pX; 
-	rayY = player.pY;
-	xOffset = - MAP_SCALE;
-	yOffset = 0;
+		rayX = player.pX; 
+		rayY = player.pY;
+		xOffset = - MAP_SCALE;
+		yOffset = 0;
       }
 
       else{
-	rayX = player.pX;
-	rayY = player.pY;
-	depth = MAP_X;
+		rayX = player.pX;
+		rayY = player.pY;
+		depth = MAP_X;
       }
-      while(depth < MAP_X) 
-      { 
-	//mX = (int)(rayX) >> 6;
-	//mY = (int)(rayY) >> 6;
-	mX = (int) (rayX / MAP_SCALE);
-	mY = (int) (rayY / MAP_SCALE);
-	index = mY * MAP_X + mX;                          
-	if(index > 0 && index < MAP_X * MAP_Y && map.worldMap[index] != 0){
-	  depth = MAP_X;
-	}//hit         
-	else{ 
-	  rayX +=xOffset;
-	  rayY += yOffset; 
-	  depth += 1;
-	} 
+
+      while(depth < MAP_X){ 
+		//mX = (int)(rayX) >> 6;
+		//mY = (int)(rayY) >> 6;
+		mX = (int) (rayX / MAP_SCALE);
+		mY = (int) (rayY / MAP_SCALE);
+		index = mY * MAP_X + mX;                          
+		
+		if(index > 0 && index < MAP_X * MAP_Y && map.worldMap[index] != 0){
+		  depth = MAP_X;
+		}//hit         
+		
+		else{ 
+		  rayX +=xOffset;
+		  rayY += yOffset; 
+		  depth += 1;
+		} 
       }
 
       horizontal.coordinates.x = rayX;
@@ -196,69 +199,69 @@ class Raycaster {
 
       if (cos(rayAng) > 0.001)
       {
-	rayX = (((int) player.pX / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
-	//rayX = (((int) player.pX >>6 ) << 6) + MAP_SCALE;
-	rayY =(player.pX - rayX) * nTan + player.pY; 
-	xOffset = MAP_SCALE; 
-	yOffset = -xOffset * nTan;
+		rayX = (((int) player.pX / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
+		//rayX = (((int) player.pX >>6 ) << 6) + MAP_SCALE;
+		rayY =(player.pX - rayX) * nTan + player.pY; 
+		xOffset = MAP_SCALE; 
+		yOffset = -xOffset * nTan;
       }
 
       else if (cos(rayAng) < - 0.001)
       { 
-	//rayX = (((int)player.pX >> 6) << 6) - 0.0001; 
-	rayX = (((int) player.pX / MAP_SCALE) * MAP_SCALE) -0.001f;
-	rayY = (player.pX - rayX) * nTan + player.pY; 
-	xOffset = -MAP_SCALE; 
-	yOffset = -xOffset * nTan;
+		//rayX = (((int)player.pX >> 6) << 6) - 0.0001; 
+		rayX = (((int) player.pX / MAP_SCALE) * MAP_SCALE) -0.001f;
+		rayY = (player.pX - rayX) * nTan + player.pY; 
+		xOffset = -MAP_SCALE; 
+		yOffset = -xOffset * nTan;
       }
 
       else if( (-(rayAng) > (PI / 2) - 0.001) && (-(rayAng) < (PI / 2) + 0.001f))
       {
-	rayX = player.pX; 
-	rayY = player.pY; 
-	yOffset = MAP_SCALE;
-	xOffset = 0;
+		rayX = player.pX; 
+		rayY = player.pY; 
+		yOffset = MAP_SCALE;
+		xOffset = 0;
       }
 
       else if( (-(rayAng) > (3 * PI / 2) - 0.001f) && ( -(rayAng) < (3 * PI / 2) + 0.001f))
       {
-	rayX = player.pX; 
-	rayY = player.pY; 
-	yOffset = - MAP_SCALE;
-	xOffset = 0;
+		rayX = player.pX; 
+		rayY = player.pY; 
+		yOffset = - MAP_SCALE;
+		xOffset = 0;
       }
 	
       else
       {
-	rayX = player.pX;
-	rayY = player.pY;
-	depth = MAP_X;
+		rayX = player.pX;
+		rayY = player.pY;
+		depth = MAP_X;
       }
 
       while(depth < MAP_X)
       {
 
-	//mX = (int) (rayX) >> 6;
-	//mY = (int) (rayY) >> 6; 
-	mX = (int) (rayX / MAP_SCALE);
-	mY = (int) (rayY / MAP_SCALE);
-	index=mY * MAP_X + mX; 
+		//mX = (int) (rayX) >> 6;
+		//mY = (int) (rayY) >> 6; 
+		mX = (int) (rayX / MAP_SCALE);
+		mY = (int) (rayY / MAP_SCALE);
+		index=mY * MAP_X + mX; 
 
-	mX = (int) rayX / MAP_SCALE;
-	mY = (int) rayY / MAP_SCALE;
-	index = mY * MAP_X + mX;
+		mX = (int) rayX / MAP_SCALE;
+		mY = (int) rayY / MAP_SCALE;
+		index = mY * MAP_X + mX;
 
-	if(index > 0 && index < (MAP_X * MAP_X) && map.worldMap[index] != 0)
-	{
-	  depth = MAP_X; // Encontrou uma parede
-	}
+		if(index > 0 && index < (MAP_X * MAP_X) && map.worldMap[index] != 0)
+		{
+			depth = MAP_X; // Encontrou uma parede
+		}
 
-	else
-	{
-	  rayX += xOffset;
-	  rayY += yOffset;
-	  depth += 1;
-	}
+		else
+		{
+			rayX += xOffset;
+			rayY += yOffset;
+			depth += 1;
+		}
       }
 
       vertical.coordinates.x = rayX;
