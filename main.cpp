@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "maze.h"
 #include "map.h"
 #include "player.h"
 #include "raycaster.h"

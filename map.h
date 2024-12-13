@@ -3,13 +3,17 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include "maze.h"
 #include "globals.h"
+
 
 // Funções de geração de mapa
 char* getEmptyMap();
+char* getFilledMap();
 char* getRandomMap();
 
 class Map {
+
   public:
 
     int mapX = MAP_X;
@@ -110,12 +114,13 @@ class Map {
 		}
 
 		else if(id == 5){
-		  char* tempMap = getEmptyMap();
+		  char* tempMap = getEmptyMap(mapX, mapY);
 		  std::copy(tempMap, tempMap + MAP_X*MAP_Y, worldMap);
 		}
 
 		else if(id == 6){
-			char* tempMap = getRandomMap();
+			Maze maze (mapX, mapY);
+			char* tempMap = maze.getMazeMap();
 			std::copy(tempMap, tempMap + MAP_X*MAP_Y, worldMap);
 		}
 
@@ -154,38 +159,3 @@ class Map {
       window.draw(rect);
     }
 };
-
-// Função que gera um mapa vazio (apenas com as paredes laterais)
-char* getEmptyMap(){
-	char* emptyMap = new char[MAP_X*MAP_Y + 50];
-	
-	for(int x = 0; x < MAP_X; x++){
-
-		for(int y = 0; y < MAP_Y; y++){
-			
-			if(x == 0 || x == MAP_X-1 || y == 0 || y == MAP_Y-1)
-				emptyMap[y*MAP_X+x] = 1;
-			
-			else
-				emptyMap[y*MAP_X+x] = 0;
-		}
-	}
-	return emptyMap;
-}
-// Função que gera um mapa aleatório (teste -> função nada útil)
-char* getRandomMap(){
-	char* randomMap = new char[MAP_X*MAP_Y + 50];
-
-	for(int x = 0; x < MAP_X; x++){
-		
-		for(int y = 0; y < MAP_Y; y++){
-			
-			if(x == 0 || x == MAP_X-1 || y == 0 || y == MAP_Y-1)
-				randomMap[y*MAP_X+x] = 1;
-			
-			else
-				randomMap[y*MAP_X+x] = rand() % 6;
-		}
-	}
-	return randomMap;
-}
