@@ -27,7 +27,7 @@ class Raycaster {
 
     sf::RectangleShape renderStrip(ray nearest, float xPos, float yPos) {
     	sf::RectangleShape rect;
-    	rect.setSize(sf::Vector2f(MAP_SCALE, nearest.lineHeight));
+    	rect.setSize(sf::Vector2f(MAP_SCALE, nearest.lineHeight/2));
     	rect.setOrigin(0, nearest.lineHeight / 4);
     	rect.setPosition(xPos, yPos);
 	

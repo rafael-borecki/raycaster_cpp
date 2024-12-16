@@ -20,7 +20,7 @@ class Player {
 
     Player(float pX, float pY): pX(pX), pY(pY) {
       playerSprite.setSize(sf::Vector2f(MAP_SCALE/2,MAP_SCALE/2));
-      playerSprite.setPosition((MAP_SCALE/2 * MAP_X)/2, (MAP_SCALE/2 * MAP_Y)/2);
+      //playerSprite.setPosition((MAP_SCALE/2 * MAP_X)/2, (MAP_SCALE/2 * MAP_Y)/2);
       playerSprite.setOrigin(MAP_SCALE/4, MAP_SCALE/4);
       pdX = 0;
       pdY = 0;
@@ -68,21 +68,21 @@ class Player {
 	pY -= moveSpeed * pdY;
 
 	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	    (int)((pX + 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
 	  pX += moveSpeed * pdX;
 	}
 
 	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	    (int)((pX - 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
 	  pX += moveSpeed * pdX;
 	}
 
-	if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
 	    (int)((pX) / MAP_SCALE)]){
 	  pY += moveSpeed * pdY;
 	}
 
-	if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
 	    (int)((pX) / MAP_SCALE)]){
 	  pY += moveSpeed * pdY;
 	}
@@ -94,29 +94,29 @@ class Player {
 	pX += moveSpeed * pdX;
 
 	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	    (int)((pX + 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
 	  pX -= moveSpeed * pdX;
 	}
 
 	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	    (int)((pX - 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
 	  pX -= moveSpeed * pdX;
 	}
 
-	if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
 	    (int)((pX) / MAP_SCALE)]){
 	  pY -= moveSpeed * pdY;
 	}
 
-	if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
 	    (int)((pX) / MAP_SCALE)]){
 	  pY -= moveSpeed * pdY;
 	}
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-	pX = 300.f;
-	pY = 300.f;
+      pX = 300.0f;
+      pY = 300.0f;
       }
 
     }
