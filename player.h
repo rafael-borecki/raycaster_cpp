@@ -8,9 +8,9 @@
 #include <string>
 
 class Player {
-  
+
   public:
-    
+
     float pAng;
     float pX, pY, pdX, pdY, pAngDeg;
     float moveSpeed, rotSpeed;
@@ -33,92 +33,92 @@ class Player {
     }
 
     //void setTexture(std::string texturePath) {
-      //playerTexture.loadFromFile(texturePath);
-      //playerSprite.setTexture(playerTexture);
+    //playerTexture.loadFromFile(texturePath);
+    //playerSprite.setTexture(playerTexture);
     //}
 
     //sf::Sprite getSprite() { return playerSprite; }
     sf::RectangleShape getSprite() { return playerSprite; }
 
     void rotatePlayer(Map map) {
-      
+
       if (pAng > 6.29) {
-	      pAng = 0.01f;
+	pAng = 0.01f;
       }
 
       if (pAng < 0) {
-	      pAng = 2 * PI - 0.001f;
+	pAng = 2 * PI - 0.001f;
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-	      pAng += rotSpeed;
-	      pdX = cos(pAng);
-	      pdY = sin(pAng);
+	pAng += rotSpeed;
+	pdX = cos(pAng);
+	pdY = sin(pAng);
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-	      pAng -= rotSpeed;
-	      pdX = cos(pAng);
-	      pdY = sin(pAng);
+	pAng -= rotSpeed;
+	pdX = cos(pAng);
+	pdY = sin(pAng);
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-	      
-        pX -= moveSpeed * pdX;
-	      pY -= moveSpeed * pdY;
-	      
-        if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	          (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	        pX += moveSpeed * pdX;
-	      }
 
-	      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	          (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	        pX += moveSpeed * pdX;
-	      }
+	pX -= moveSpeed * pdX;
+	pY -= moveSpeed * pdY;
 
-	      if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	          (int)((pX) / MAP_SCALE)]){
-	        pY += moveSpeed * pdY;
-	      }
+	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+	    (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	  pX += moveSpeed * pdX;
+	}
 
-	      if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	          (int)((pX) / MAP_SCALE)]){
-	        pY += moveSpeed * pdY;
-	      }
+	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+	    (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	  pX += moveSpeed * pdX;
+	}
+
+	if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	    (int)((pX) / MAP_SCALE)]){
+	  pY += moveSpeed * pdY;
+	}
+
+	if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	    (int)((pX) / MAP_SCALE)]){
+	  pY += moveSpeed * pdY;
+	}
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-	      
-        pY += moveSpeed * pdY;
-	      pX += moveSpeed * pdX;
 
-	      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	          (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	        pX -= moveSpeed * pdX;
-	      }
+	pY += moveSpeed * pdY;
+	pX += moveSpeed * pdX;
 
-	      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	          (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	        pX -= moveSpeed * pdX;
-	      }
+	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+	    (int)((pX + playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	  pX -= moveSpeed * pdX;
+	}
 
-	      if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	          (int)((pX) / MAP_SCALE)]){
-	        pY -= moveSpeed * pdY;
-	      }
+	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+	    (int)((pX - playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
+	  pX -= moveSpeed * pdX;
+	}
 
-	      if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	          (int)((pX) / MAP_SCALE)]){
-	        pY -= moveSpeed * pdY;
-	      }
+	if (map.worldMap[map.mapX * (int)((pY + playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	    (int)((pX) / MAP_SCALE)]){
+	  pY -= moveSpeed * pdY;
+	}
+
+	if (map.worldMap[map.mapX * (int)((pY - playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
+	    (int)((pX) / MAP_SCALE)]){
+	  pY -= moveSpeed * pdY;
+	}
       }
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-	      pX = 300.f;
-	      pY = 300.f;
+	pX = 300.f;
+	pY = 300.f;
       }
-      
+
     }
 
     void updatePlayer(float fps) {
@@ -131,6 +131,18 @@ class Player {
 
     void dropAmmo() {
       ammo = ammo - 1;
+    }
+
+    int checkExit(Map map) {
+      int exit = 0;
+
+      for(int i = -1; i < 2; i=i+2)
+	for(int j = -1; j < 2; j=j+2){
+	  if(map.worldMap[map.mapX * (int)((pY) / MAP_SCALE + i) + (int)((pX/ MAP_SCALE + j))] == 7){
+	    exit = 1; 
+	  }
+	}
+      return exit;
     }
 
     int getAmmo() {

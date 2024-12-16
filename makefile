@@ -13,3 +13,5 @@ $(TARGET): $(SRC) $(HEADERS)
 clean:
 	rm -f $(TARGET)
 
+run: 
+	./$(TARGET)

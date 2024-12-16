@@ -10,14 +10,15 @@
 int main() {
   sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Poo proj", sf::Style::Titlebar);
   gameWindow.setFramerateLimit(FRAME_RATE);
-  //gameWindow.setPosition(sf::Vector2i(2560, 50)); 
+  gameWindow.setPosition(sf::Vector2i(2560, 50)); 
 
   sf::Clock clock;
   float fps = 0;
   
-  int mapId = 3;
+  int mapId = 1;
   Map map(mapId);
 
+  fodassssse:
   Player player(300.f, 300.f);
   Raycaster raycast;
   UI ui;
@@ -37,8 +38,6 @@ int main() {
         gameWindow.close();
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         gameWindow.close();
-      if(sf::Keyboard::isKeyPressed(sf::Keyboard::B))
-	    printf("\n%f ", fps);
     }
 
     gameWindow.clear(sf::Color{27,115,0});
@@ -47,6 +46,10 @@ int main() {
     raycast.draw3D(gameWindow, render);
     player.rotatePlayer(map);
     player.updatePlayer(fps);
+    if(player.checkExit(map))
+      goto fodassssse;
+      //NEXT_LEVEL_LOGIC;
+
     //gun.gunDraw(gameWindow, clock, &player);
     //map.drawMap(gameWindow);
     //gameWindow.draw(player.playerSprite);
