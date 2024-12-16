@@ -1,5 +1,5 @@
-#ifndef MAZE_H
-#define MAZE_H
+#pragma once
+
 
 // Includes
 
@@ -198,5 +198,3 @@ char* getFilledMap(int map_x, int map_y){
 	}
 	return filledMap;
 }
-
-#endif

@@ -4,7 +4,7 @@
 #include "player.h"
 #include "raycaster.h"
 #include "globals.h"
-#include "ui.h"
+#include "hud.h"
 
 int main() {
 
@@ -31,7 +31,7 @@ int main() {
   Raycaster raycast;
 
   // Criação da interface do jogo
-  UI ui;
+  HUD hud("./assets/font.otf", 24, sf::Color::Green);
 
   sf::RectangleShape skybox;
   skybox.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT/2));
@@ -103,7 +103,7 @@ int main() {
     }
    
     // Desenho e exibição da interface do jogo
-    ui.uiDraw(gameWindow,fps, map, raycast, render, player, level, timeOut);
+    hud.hudDraw(gameWindow,fps, map, raycast, render, player, level, timeOut);
     gameWindow.display();
   }
 }

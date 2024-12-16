@@ -17,6 +17,15 @@ int FRAME_RATE	  = 60;
 #define MAXTIMEOUT    300.f
 #define MINTIMEOUT    60.f
 
+#define FPS_HUDPOSITION     350,50
+#define TIMER_HUDPOSITION   750,50
+#define LEVEL_HUDPOSITION   1150,50
+
+
+#define FPS_ILPOSITION     350,50
+#define TIMER_ILPOSITION   750,50
+#define LEVEL_ILPOSITION   1150,50
+
 
 float dist(float px, float py, float rx, float ry){
     return (sqrt((px-rx) * (px -rx) + (py-ry) * (py - ry)));
