@@ -23,7 +23,7 @@ class Maze{
 	int _mazeX; // Tamanho do labirinto em X
 	int _mazeY; // Tamanho do labirinto em Y
 
-	char *_maze;
+	char *_maze; // String que representa o mapa do labirinto
 	
 public:
 
@@ -151,10 +151,10 @@ public:
 		std::pair<int,int> randomOut = possibOuts[dist(R)];
 
 		// Marca a saída como caminho
-		_maze[randomOut.first] = 0; _maze[randomOut.second] = 0;
+		_maze[randomOut.first] = 0; _maze[randomOut.second] = 7;
 
 		// Retorna índice da célula de saída do labirinto
-		return randomOut.first;
+		return randomOut.second;
 	}
 
     // Método que retorna o mapa gerado na forma de uma string padrão de c

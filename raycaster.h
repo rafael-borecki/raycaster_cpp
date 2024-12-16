@@ -61,6 +61,12 @@ class Raycaster {
 			  rect.setFillColor(sf::Color{180,0,180});
 			}
     	}
+		if (nearest.color == 7) {
+			rect.setFillColor(sf::Color{138, 72, 73});
+			if(nearest.horv == 1) {
+			  rect.setFillColor(sf::Color{138, 72, 73});
+			}
+    	}
       	return rect;
     }
 
@@ -167,7 +173,7 @@ class Raycaster {
 		mY = (int) (rayY / MAP_SCALE);
 		index = mY * MAP_X + mX;                          
 		
-		if(index > 0 && index < MAP_X * MAP_Y && map.worldMap[index] != 0){
+		if(index > 0 && index < MAP_X * MAP_Y && map.worldMap[index] != 0 && map.worldMap[index] != 7){
 		  depth = MAP_X;
 		}//hit         
 		

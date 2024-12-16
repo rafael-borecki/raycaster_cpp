@@ -6,12 +6,6 @@
 #include "maze.h"
 #include "globals.h"
 
-
-// Funções de geração de mapa
-char* getEmptyMap();
-char* getFilledMap();
-char* getRandomMap();
-
 class Map {
 
   public:
@@ -100,6 +94,9 @@ class Map {
 		    drawRectangle(x,y,window,sf::Color{92,34,0});
 		  }
 		  if(worldMap[y*mapX+x] == 0){
+		    drawRectangle(x,y,window,sf::Color{180,180,180});
+		  }
+		  if(worldMap[y*mapX+x] == 7){
 		    drawRectangle(x,y,window,sf::Color{180,180,180});
 		  }
 		}
