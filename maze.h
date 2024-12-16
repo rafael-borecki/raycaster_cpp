@@ -151,7 +151,7 @@ public:
 		std::pair<int,int> randomOut = possibOuts[dist(R)];
 
 		// Marca a saída como caminho
-		_maze[randomOut.first] = 0; _maze[randomOut.second] = 7;
+		_maze[randomOut.first] = 7; _maze[randomOut.second] = 7;
 
 		// Retorna índice da célula de saída do labirinto
 		return randomOut.second;
