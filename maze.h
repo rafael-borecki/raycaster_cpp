@@ -35,7 +35,7 @@ public:
 	}
 
     // Método que implementa a busca em profundidade para gerar o labirinto
-	void DFS(int x_origin, int y_origin){
+	void DFS(int x_origin, int y_origin, std::vector<std::pair<int,int>> &possibOuts){
 
         // Número que representa a direção e sentido da próxima célula
         int d = 0;
@@ -44,8 +44,8 @@ public:
         std::vector<int> v{0,1,2,3};
 
         // Motor com semente gerada por `rd`.
-        std::random_device r;
-        std::mt19937 R(r());
+        std::random_device rd;
+        std::mt19937 R(rd());
 
         // Embaralha o vetor de direções para aumentar aleatoriedade do labirinto
         std::shuffle(v.begin(), v.end(), R);
@@ -72,8 +72,41 @@ public:
 			}
             
             // Se célula vizinha conhecidir com parede ou estiver fora do labirinto, parte-se para próxima
-			if(x <= 0 || x >= _mazeX -1 || y <= 0 || y >= _mazeY -1)
+			if(x <= 0 || x >= _mazeX -1 || y <= 0 || y >= _mazeY -1){
+				
+				// Flag para o caso em que a célula vizinha está fora do labirinto
+				bool flag = false;
+				if(x < 0 || x > _mazeX -1 || y < 0 || y > _mazeY -1) flag = true;
+				
+				// Par da saída (célula do meio entre a atual e a vizinha, célula vizinha)
+				std::pair<int, int> out;
+
+				// De acordo com a direção e sentido da célula vizinha, adiciona-se a célula do meio
+				//entre a atual e a vizinha, no primeiro elemento do par da possível saída
+				switch(d){
+					case 0: 
+							out.first = y * _mazeX + x -1;  
+							break;
+					case 1: 
+							out.first = y * _mazeX + x +1;
+							break;
+					case 2:  
+							out.first = (y-1) * _mazeX + x;
+							break;
+					case 3:  
+							out.first = (y+1) * _mazeX + x;
+							break;
+				}
+
+				// Se a célula vizinha está fora do labirinto, a segunda parte é igual à célula do meio
+				out.second = flag ? out.first : y * _mazeX + x;
+				
+				// Adiciona saída ao vetor de possíveis saídas
+				possibOuts.push_back(out);
+				
+				// Continua para a próxima célula vizinha
 				continue;
+			}
 
             // Se a célula vizinha já foi vizitada, parte-se para a próxima
 			if(_maze[y*_mazeX + x] == 0)
@@ -89,19 +122,39 @@ public:
 			}
 			
             // Busca em profundidade da célula vizinha
-			DFS(x, y);
+			DFS(x, y, possibOuts);	
 		}
 
 	}
 
     // Método que gera um labirinto aleatório
-	void toRandomMaze(){
+	//		Saída: índice da célula de saída do labirinto
+	int toRandomMaze(){
 
 		// Cria-se um labirinto somente com paredes ( _maze[j] != 0 para todo j )
 		_maze = getFilledMap(_mazeX, _mazeY);
 
+		// Vetor de possíveis saídas do labirinto
+		std::vector<std::pair<int,int>> possibOuts;
+			
 		// começa busca em profundidade a partir do meio do labirinto
-		DFS(_mazeX/2, _mazeY/2);
+		DFS(_mazeX/2, _mazeY/2, possibOuts);
+
+		// Motor com semente gerada por `rd`.
+        std::random_device rd;
+        std::mt19937 R(rd());
+
+		// Distribuição de números inteiros entre 0 e o tamanho da lista de saídas possíveis
+		std::uniform_int_distribution<int> dist(0, possibOuts.size()-1);
+		
+		// Escolhe uma saída aleatória (formada por um par) devido a distância entre as células vizinhas
+		std::pair<int,int> randomOut = possibOuts[dist(R)];
+
+		// Marca a saída como caminho
+		_maze[randomOut.first] = 0; _maze[randomOut.second] = 0;
+
+		// Retorna índice da célula de saída do labirinto
+		return randomOut.first;
 	}
 
     // Método que retorna o mapa gerado na forma de uma string padrão de c
@@ -138,13 +191,9 @@ char* getFilledMap(int map_x, int map_y){
 
 		for(int y = 0; y < map_y; y++){
 			
-			// Paredez marroms nas bordas
-			if(x == 0 || x == map_x-1 || y == 0 || y == map_y-1)
-				filledMap[y*map_x+x] = 1;
+			// Paredes Marrons em todas as células
+			filledMap[y*map_x+x] = 1;
 			
-			// Paredes azuis no meio
-			else
-				filledMap[y*map_x+x] = 3;
 		}
 	}
 	return filledMap;
