@@ -14,11 +14,11 @@ int main() {
 
   sf::Clock clock;
   float fps = 0;
+  int level = 1;
   
-  int mapId = 1;
+  int mapId = 3;
   Map map(mapId);
 
-  fodassssse:
   Player player(300.f, 300.f);
   Raycaster raycast;
   UI ui;
@@ -27,15 +27,16 @@ int main() {
   skybox.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT/2));
   skybox.setOrigin(sf::Vector2f(0,0));
   skybox.setFillColor(sf::Color{137,180,210});
-  //Gun gun(gameWindow);
   
   while (gameWindow.isOpen()) {
     fps = 1.0f/clock.restart().asSeconds();
 
     sf::Event event;
     while (gameWindow.pollEvent(event)) {
+      
       if (event.type == sf::Event::Closed)
         gameWindow.close();
+      
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         gameWindow.close();
     }
@@ -46,15 +47,25 @@ int main() {
     raycast.draw3D(gameWindow, render);
     player.rotatePlayer(map);
     player.updatePlayer(fps);
-    if(player.checkExit(map))
-      goto fodassssse;
-      //NEXT_LEVEL_LOGIC;
+    
+    // Verifica se jogador chegou na saída do mapa
+    if(player.checkExit(map)){ // Caso sim:
 
-    //gun.gunDraw(gameWindow, clock, &player);
-    //map.drawMap(gameWindow);
-    //gameWindow.draw(player.playerSprite);
-    //raycast.drawLines(gameWindow, sf::Vector2f(player.pX, player.pY), render, sf::Color::Yellow);
-    ui.uiDraw(gameWindow,fps, map, raycast, render, player /*,player.getAmmo()*/);
+      //incrementa o nível do jogo
+      level++;
+
+      // AQUI DEVE ESTAR A VERIFICAÇÃO SE O JOGADOR QUER CONTINUAR OU NÃO JOGANDO!
+
+      // Atualiza o mapa
+      map.updateMap();
+
+      //reseta posição do jogador para o meio do mapa
+      player.pX = 300.f;
+      player.pY = 300.f;
+    }
+   
+   
+    ui.uiDraw(gameWindow,fps, map, raycast, render, player, level, 1);
     gameWindow.display();
   }
 }
