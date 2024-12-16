@@ -14,6 +14,9 @@ int FRAME_RATE	  = 60;
 #define MAP_Y         24
 #define FOV 	      60
 
+#define MAXTIMEOUT    300.f
+#define MINTIMEOUT    60.f
+
 
 float dist(float px, float py, float rx, float ry){
     return (sqrt((px-rx) * (px -rx) + (py-ry) * (py - ry)));
