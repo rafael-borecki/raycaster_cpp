@@ -17,14 +17,8 @@ int main() {
   sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "RAYCASTER", sf::Style::Titlebar);
   gameWindow.setFramerateLimit(FRAME_RATE); 
   
-  // Variáveis de tempo de jogo
-  float timeOut = MAXTIMEOUT;
+  // Clock do jogo -> permite trabalhar com fps e o time out
   sf::Clock clock;
-  sf::Time elapsed;
-  float fps = 0;
-
-  // Variável de nível do jogo
-  int level = 1;
   
   // Criação do mapa de jogo
   int mapId = 3;
@@ -50,11 +44,10 @@ int main() {
   while (gameWindow.isOpen()) {
     
     // Atualiza o tempo restante para jogador completar o nível
-    elapsed = clock.getElapsedTime();
-    timeOut -= elapsed.asSeconds();
+    hud.updateTimer(clock);
 
     // Caso o tempo tenha acabado (GAME OVER)
-    if(timeOut <= 0){
+    if(hud.getTimer() <= 0){
 
       // Limpeza da tela para abertura da interface de Game Over
       gameWindow.clear({0,0,0});
@@ -67,7 +60,7 @@ int main() {
         gameOver.select();      // verifica e trata se o jogador selecionou alguma opção
 
         // Exibição da interface de Game Over
-        gameOver.gameOverDraw(gameWindow, level, timeOut);
+        gameOver.gameOverDraw(gameWindow, hud.getLevel(), hud.getTimer());
 
         // Atualiza a tela de Game Over
         gameWindow.display();
@@ -83,11 +76,9 @@ int main() {
         
       }
 
-      // Time out reset
-      timeOut = MAXTIMEOUT;
-
-      // Level reset
-      level = 1;
+      // Reset do time out e level
+      hud.resetTimer();
+      hud.resetLevel();
 
       // Atualiza o mapa
       map.updateMap();
@@ -97,7 +88,7 @@ int main() {
     }
 
     // Atualiza o FPS
-    fps = 1.0f/clock.restart().asSeconds();
+    hud.updateFps(clock);
 
     // Verificação de necessidade de fechar o jogo
     sf::Event event;
@@ -122,16 +113,16 @@ int main() {
 
     // Atualização do jogador (movimentação)
     player.rotatePlayer(map);
-    player.updatePlayer(fps);
+    player.updatePlayer(hud.getFps());
     
     // Verifica se jogador chegou na saída do mapa
     if(player.checkExit(map)){ // Caso sim:
 
       // Incrementa o nível do jogo
-      level++;
+      hud.updateLevel();
 
       // Diminui o tempo restante para o jogador completar o nível
-      timeOut = MAXTIMEOUT/level + MINTIMEOUT;    
+      hud.timerOfLevel();    
 
       // Limpeza da tela para abertura da interface entre níveis
       gameWindow.clear({0,0,0});
@@ -144,7 +135,7 @@ int main() {
         iLevel.select();      // verifica e trata se o jogador selecionou alguma opção
 
         // Exibição da interface de interlevel
-        iLevel.iLevelDraw(gameWindow, level, timeOut);
+        iLevel.iLevelDraw(gameWindow, hud.getLevel(), hud.getTimer());
 
         // Atualiza a tela de interlevel
         gameWindow.display();
@@ -153,9 +144,9 @@ int main() {
       // Caso o jogador deseje sair do jogo (voltar ao menu)
       if(!iLevel.continuation()){
         
-        // Level e Time out reset
-        timeOut = MAXTIMEOUT;
-        level = 1;
+        // Reset do time out e do level
+        hud.resetTimer();
+        hud.resetLevel();
         
         // Abertura do menu
         delete menu;
@@ -173,7 +164,7 @@ int main() {
     }
 
     // Desenho e exibição da interface do jogo
-    hud.hudDraw(gameWindow,fps, map, raycast, render, player, level, timeOut);
+    hud.hudDraw(gameWindow,map, raycast, render, player);
     gameWindow.display();
   }
 }

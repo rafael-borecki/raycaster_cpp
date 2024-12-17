@@ -14,8 +14,8 @@ int FRAME_RATE	  = 60;
 #define MAP_Y         24
 #define FOV 	      60
 
-#define MAXTIMEOUT    300.f
-#define MINTIMEOUT    60.f
+#define MAXTIMEOUT    120.f
+#define MINTIMEOUT    30.f
 
 #define FPS_HUDPOSITION     350,50
 #define TIMER_HUDPOSITION   750,50
