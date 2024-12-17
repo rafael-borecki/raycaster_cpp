@@ -50,7 +50,6 @@ public:
 
 		else if (id == 2)
 		{
-
 			// Labirinto vazio
 			Maze maze(mapX, mapY);
 
@@ -63,7 +62,6 @@ public:
 
 		else if (id == 3)
 		{
-
 			// Labirinto aleatório
 			Maze maze(mapX, mapY);
 			maze.toRandomMaze();
@@ -94,21 +92,14 @@ public:
 				{
 					drawRectangle(x, y, window, sf::Color{0, 0, 255});
 				}
-				if (worldMap[y * mapX + x] == 2)
-				{
-					drawRectangle(x, y, window, sf::Color{0, 255, 0});
-				}
-				if (worldMap[y * mapX + x] == 1)
-				{
-					drawRectangle(x, y, window, sf::Color{92, 34, 0});
-				}
+    
 				if (worldMap[y * mapX + x] == 0)
 				{
 					drawRectangle(x, y, window, sf::Color{180, 180, 180});
 				}
 				if (worldMap[y * mapX + x] == 7)
 				{
-					drawRectangle(x, y, window, sf::Color{137, 180, 210});
+					drawRectangle(x, y, window, sf::Color{180, 180, 180});
 				}
 			}
 		}
