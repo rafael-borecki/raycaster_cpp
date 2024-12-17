@@ -6,8 +6,15 @@
 #include "globals.h"
 #include "hud.h"
 #include "il.h"
+#include "menu.h"
 
 int main() {
+  // Criação do menu
+  vector<string> texts = {"Play", "Record", "About", "Exit"};
+  vector<sf::Vector2f> cordinates = {{935,570},{935,620},{935,670},{935,720}};
+  vector<size_t> fontSizes = {33,33,33,33};
+  MenuWindow *about = new MenuWindow(1,1,"images/background.png","Game","fonts/GAMERIA.ttf", texts, cordinates, fontSizes);
+  about->runWindow();
 
   // Criação da janela do jogo
   sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Poo proj", sf::Style::Titlebar);
