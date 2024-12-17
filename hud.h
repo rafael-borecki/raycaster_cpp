@@ -9,19 +9,19 @@
 class HUD {
 
     // FPS do jogo
-    sf::Text hudFps;
-    float _fps;
+    sf::Text hudFps;    // texto do FPS
+    float _fps;         // valor do FPS
 
     // Timer do tempo restante para termianr o nível atual do labirinto
-    sf::Text hudTimer;
-    float _timer;
+    sf::Text hudTimer;  // texto do timer
+    float _timer;       // valor do timer
 
     // Quantidade de níveis completados
-    sf::Text hudLevels;
-    int _level;
+    sf::Text hudLevels; // texto do level
+    int _level;         // valor do level
 
-    //sf::Text ammo;
-    sf::Font font;
+    // FOnnte do HUD
+    sf::Font font;      
 
   public:
 

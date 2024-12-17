@@ -5,7 +5,7 @@ SRC = main.cpp menu.cpp
 HEADERS = raycaster.h globals.h map.h player.h hud.h maze.h il.h menu.h
 TARGET = game
 
-all: $(TARGET)
+all: clean $(TARGET)
 
 $(TARGET): $(SRC) $(HEADERS)
 	$(CXX) $(SRC) -o $(TARGET) $(CXXFLAGS)
