@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 
+
+// struct para armazenar informacoes a respeito dos raios do algoritmo de raycast
 typedef struct
 {
 	sf::Vector2f coordinates;
@@ -18,6 +20,7 @@ typedef struct
 class Raycaster
 {
 public:
+	// Metodo responsavel por varrer o campo de visao renderizando o ambiente 3D.
 	void draw3D(sf::RenderWindow &window, std::vector<ray> rays)
 	{
 	  for(int i = FOV - 1; i > -1; i --)
@@ -26,6 +29,7 @@ public:
 		}
 	}
 
+	// Metodo responsavel por renderizar um unico intervalo de angulo do campo de visao.
 	sf::RectangleShape renderStrip(ray nearest, float xPos, float yPos)
 	{
 	  sf::RectangleShape rect;
@@ -84,6 +88,7 @@ public:
 	  return rect;
 	}
 
+	//Metodo principal do algoritmo de raycast.
 	std::vector<ray> renderLines(sf::RenderWindow &window, Player player, Map map)
 	{
 	  ray horizontal;
@@ -91,8 +96,12 @@ public:
 	  std::vector<ray> nearest;
 	  float one_rad = ONE_RAD;
 	  float pAng = (-player.playerSprite.getRotation() + (FOV / 2)) * one_rad;
+
+	  // O efeito fish eye é uma consequencia do algoritmo utilizado para o raycast,
+	  // entretanto é feita uma correção "achatando" as partes arrendondadas.
 	  float fixFishEye;
 
+	  // Loop responsavel por varrer o campo de visao.
 	  for (int i = (FOV / 2); i > -(FOV / 2); i--)
 	  {
 	    pAng -= one_rad;
@@ -105,9 +114,12 @@ public:
 	    {
 	      fixFishEye -= 2 * PI;
 	    }
+
+	    // Busca pelas interseccoes verticais e horizontais do raycast.
 	    horizontal = scanHorizontal(window, player, map, pAng);
 	    vertical = scanVertical(window, player, map, pAng);
 
+	    // Selecao da menor distancia
 	    if (horizontal.distance < vertical.distance)
 	    {
 	      horizontal.distance = horizontal.distance * cos(-fixFishEye);
@@ -126,6 +138,7 @@ public:
 	  return nearest;
 	}
 
+	// Metodo responsavel por desenhar as linhas do raycast no minimapa
 	void drawLines(sf::RenderWindow &window, sf::Vector2f playerPos, std::vector<ray> rayPos, sf::Color color)
 	{
 	  for (int i = 0; i < rayPos.size(); i++)
@@ -137,6 +150,7 @@ public:
 	  }
 	}
 
+	// Metodo de busca das interseccoes horizontais
 	ray scanHorizontal(sf::RenderWindow &window, Player player, Map map, float rayAng)
 	{
 	  ray horizontal;
@@ -149,7 +163,6 @@ public:
 
 	  if (sin(rayAng) > 0.001)
 	  {
-	    // rayY = (((int) player.pY >> 6) << 6 ) - 0.0001;
 	    rayY = (((int)player.pY / MAP_SCALE) * MAP_SCALE) - 0.001f;
 	    rayX = (player.pY - rayY) * Tan + player.pX;
 	    yOffset = -MAP_SCALE;
@@ -158,7 +171,6 @@ public:
 
 	  else if (sin(rayAng) < -0.001)
 	  {
-	    // rayY = (((int) player.pY >> 6) << 6) + MAP_SCALE;
 	    rayY = (((int)player.pY / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
 	    rayX = (player.pY - rayY) * Tan + player.pX;
 	    yOffset = MAP_SCALE;
@@ -190,8 +202,6 @@ public:
 
 	  while (depth < MAP_X)
 	  {
-	    // mX = (int)(rayX) >> 6;
-	    // mY = (int)(rayY) >> 6;
 	    mX = (int)(rayX / MAP_SCALE);
 	    mY = (int)(rayY / MAP_SCALE);
 	    index = mY * MAP_X + mX;
@@ -214,10 +224,10 @@ public:
 	  horizontal.distance = dist(player.pX, player.pY, rayX, rayY);
 	  horizontal.horv = 0;
 	  horizontal.index = index;
-	  // drawLines(window, sf::Vector2f(player.pX, player.pY), horizontal.coordinates, sf::Color::Green);
 	  return horizontal;
 	}
 
+	// Metodo de busca das interseccoes verticais.
 	ray scanVertical(sf::RenderWindow &window, Player player, Map map, float rayAng)
 	{
 	  ray vertical;
@@ -231,7 +241,6 @@ public:
 	  if (cos(rayAng) > 0.001)
 	  {
 	    rayX = (((int)player.pX / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
-	    // rayX = (((int) player.pX >>6 ) << 6) + MAP_SCALE;
 	    rayY = (player.pX - rayX) * nTan + player.pY;
 	    xOffset = MAP_SCALE;
 	    yOffset = -xOffset * nTan;
@@ -239,7 +248,6 @@ public:
 
 	  else if (cos(rayAng) < -0.001)
 	  {
-	    // rayX = (((int)player.pX >> 6) << 6) - 0.0001;
 	    rayX = (((int)player.pX / MAP_SCALE) * MAP_SCALE) - 0.001f;
 	    rayY = (player.pX - rayX) * nTan + player.pY;
 	    xOffset = -MAP_SCALE;
@@ -272,8 +280,6 @@ public:
 	  while (depth < MAP_X)
 	  {
 
-	    // mX = (int) (rayX) >> 6;
-	    // mY = (int) (rayY) >> 6;
 	    mX = (int)(rayX / MAP_SCALE);
 	    mY = (int)(rayY / MAP_SCALE);
 	    index = mY * MAP_X + mX;
