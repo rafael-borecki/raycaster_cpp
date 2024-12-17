@@ -77,6 +77,7 @@ int main() {
       if(!gameOver.continuation()){
         
         // Abertura do menu
+        delete menu;
         menu = createMenu();
         menu->runWindow();
         
@@ -152,6 +153,7 @@ int main() {
         level = 1;
         
         // Abertura do menu
+        delete menu;
         menu = createMenu();
         menu->runWindow();
         

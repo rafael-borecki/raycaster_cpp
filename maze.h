@@ -136,6 +136,9 @@ public:
 	//		Saída: índice da célula de saída do labirinto
 	int toRandomMaze(){
 
+		// Deleta o labirinto atual
+		delete[] _maze;
+
 		// Cria-se um labirinto somente com paredes ( _maze[j] != 0 para todo j )
 		_maze = getFilledMap(_mazeX, _mazeY);
 
