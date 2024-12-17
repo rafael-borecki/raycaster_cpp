@@ -29,6 +29,7 @@ class InterLevel {
 
   public:
 
+    // Construtor da interface de interlevel
     InterLevel(std::string fontPath, int characterSize, sf::Color color){
       
       // Inicialização da variável de continuidade do jogo
@@ -74,22 +75,27 @@ class InterLevel {
       iLevelLevels.setPosition(LEVEL_ILPOSITION);
     }
 
+    // Seleciona opção 1
     void moveUp(){
       option = 1;
     }
 
+    // Seleciona opção 2
     void moveDown(){
       option = 2;
     }
 
+    // Navegação entre as opções
     void navegation(){
       
+      // Verifica se a tecla de cima (opt 1) foi pressionada, se sim move para cima o cursor de opção
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         opt1Rect.setFillColor(sf::Color::White);
         opt2Rect.setFillColor(sf::Color::Black);
         moveUp();
       }
 
+      // Verifica se a tecla de baixo (opt 2) foi pressionada, se sim move para baixo o cursor de opção
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         opt2Rect.setFillColor(sf::Color::White);
         opt1Rect.setFillColor(sf::Color::Black);
@@ -98,24 +104,30 @@ class InterLevel {
 
     }
 
+    // Seleciona a opção e retorna true caso a tecla enter seja pressionada
     bool select(){
       
+      // Verifica se a tecla enter foi pressionada, uma opção foi selecionada e retorna true
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
         continueGame = (option == 1);
         return true;
       }
       
+      // Caso contrário, retorna false
       return false;
     }
 
+    // Retorna a continuidade do jogo
     bool continuation(){
       return continueGame;
     }
 
+    // Retorna a fonte do texto
     sf::Font& getFont(){
       return font;
     }
 
+    // Desenha a interface de interlevel
     void iLevelDraw(sf::RenderWindow &window, int level, int time){
       
       // Setagem do timer e level
@@ -139,9 +151,9 @@ class GameOver : public InterLevel
 
   public:
 
+    // Construtor da interface de game over
     GameOver(std::string fontPath, int characterSize, sf::Color color) : InterLevel(fontPath, characterSize, color)
     {
-
       // Setagem do texto de game over
       gameOverText.setString("Game Over");
       gameOverText.setPosition(500, 200);
@@ -150,6 +162,7 @@ class GameOver : public InterLevel
       gameOverText.setFillColor(color);
     }
 
+    // Desenha a interface de game over
     void gameOverDraw(sf::RenderWindow &window,  int level, int time)
     {
       // Desenha o texto de game over
