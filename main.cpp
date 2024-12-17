@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
-#include "maze.h"
-#include "map.h"
-#include "player.h"
-#include "raycaster.h"
-#include "globals.h"
-#include "hud.h"
-#include "il.h"
-#include "menu.h"
+#include "globals.h"            // Arquivo de cabeçalho das variáveis globais
+#include "map.h"                // Arquivo de cabeçalho do mapa     
+#include "maze.h"               // Arquivo de cabeçalho do labirinto
+#include "player.h"             // Arquivo de cabeçalho do jogador
+#include "raycaster.h"          // Arquivo de cabeçalho do raycaster
+#include "menu.h"               // Arquivo de cabeçalho do menu
+#include "hud.h"                // Arquivo de cabeçalho da interface do HUD          
+#include "il.h"                 // Arquivo de cabeçalho da interface de interLevel
 
 int main() {
   // Criação do menu
@@ -14,7 +14,7 @@ int main() {
   menu->runWindow();
 
   // Criação da janela do jogo
-  sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Poo proj", sf::Style::Titlebar);
+  sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "RAYCASTER", sf::Style::Titlebar);
   gameWindow.setFramerateLimit(FRAME_RATE); 
   
   // Variáveis de tempo de jogo
@@ -26,7 +26,7 @@ int main() {
   // Variável de nível do jogo
   int level = 1;
   
-  // Criação do mapa
+  // Criação do mapa de jogo
   int mapId = 3;
   Map map(mapId);
 
@@ -63,8 +63,8 @@ int main() {
       while(!gameOver.select()){
 
         // Atualiza a interface de Game Over
-        gameOver.navegation();
-        gameOver.select();
+        gameOver.navegation();  // verifica e trata a navegação na tela
+        gameOver.select();      // verifica e trata se o jogador selecionou alguma opção
 
         // Exibição da interface de Game Over
         gameOver.gameOverDraw(gameWindow, level, timeOut);
@@ -93,8 +93,7 @@ int main() {
       map.updateMap();
 
       //reseta posição do jogador para o meio do mapa
-      player.pX = 300.f;
-      player.pY = 300.f;
+      player.resetPosition();
     }
 
     // Atualiza o FPS
@@ -111,11 +110,17 @@ int main() {
         gameWindow.close();
     }
 
-
+    // Limpeza da tela
     gameWindow.clear(sf::Color{27,115,0});
+
+    // Desenho do céu do mapa
     gameWindow.draw(skybox);
+
+    // Renderização do raycaster
     std::vector<ray> render =  raycast.renderLines(gameWindow, player, map);
     raycast.draw3D(gameWindow, render);
+
+    // Atualização do jogador (movimentação)
     player.rotatePlayer(map);
     player.updatePlayer(fps);
     
@@ -135,8 +140,8 @@ int main() {
       while(!iLevel.select()){
 
         // Atualiza a interface de interlevel
-        iLevel.navegation();
-        iLevel.select();
+        iLevel.navegation();  // verifica e trata a navegação na tela
+        iLevel.select();      // verifica e trata se o jogador selecionou alguma opção
 
         // Exibição da interface de interlevel
         iLevel.iLevelDraw(gameWindow, level, timeOut);
@@ -163,8 +168,7 @@ int main() {
       map.updateMap();
 
       //reseta posição do jogador para o meio do mapa
-      player.pX = 300.f;
-      player.pY = 300.f;
+      player.resetPosition();
 
     }
 

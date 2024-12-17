@@ -31,85 +31,106 @@ public:
     rotSpeed = 0.9f;
   }
 
-    void rotatePlayer(Map map) {
+  void rotatePlayer(Map map)
+  {
 
-      if (pAng > 6.29) {
-	pAng = 0.01f;
+    if (pAng > 6.29)
+    {
+      pAng = 0.01f;
+    }
+
+    if (pAng < 0)
+    {
+      pAng = 2 * PI - 0.001f;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+      pAng += rotSpeed;
+      pdX = cos(pAng);
+      pdY = sin(pAng);
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+      pAng -= rotSpeed;
+      pdX = cos(pAng);
+      pdY = sin(pAng);
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+
+      pX -= moveSpeed * pdX;
+      pY -= moveSpeed * pdY;
+
+      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+                       (int)((pX + 0.1 * playerSprite.getLocalBounds().width / 2) / MAP_SCALE)])
+      {
+        pX += moveSpeed * pdX;
       }
 
-      if (pAng < 0) {
-	pAng = 2 * PI - 0.001f;
+      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+                       (int)((pX - 0.1 * playerSprite.getLocalBounds().width / 2) / MAP_SCALE)])
+      {
+        pX += moveSpeed * pdX;
       }
 
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-	pAng += rotSpeed;
-	pdX = cos(pAng);
-	pdY = sin(pAng);
+      if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height / 2) / MAP_SCALE) +
+                       (int)((pX) / MAP_SCALE)])
+      {
+        pY += moveSpeed * pdY;
       }
 
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-	pAng -= rotSpeed;
-	pdX = cos(pAng);
-	pdY = sin(pAng);
-      }
-
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-
-	pX -= moveSpeed * pdX;
-	pY -= moveSpeed * pdY;
-
-	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX + 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	  pX += moveSpeed * pdX;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX - 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	  pX += moveSpeed * pdX;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	    (int)((pX) / MAP_SCALE)]){
-	  pY += moveSpeed * pdY;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	    (int)((pX) / MAP_SCALE)]){
-	  pY += moveSpeed * pdY;
-	}
-      }
-
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-
-	pY += moveSpeed * pdY;
-	pX += moveSpeed * pdX;
-
-	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX + 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	  pX -= moveSpeed * pdX;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
-	    (int)((pX - 0.1 * playerSprite.getLocalBounds().width/2) / MAP_SCALE)]){
-	  pX -= moveSpeed * pdX;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	    (int)((pX) / MAP_SCALE)]){
-	  pY -= moveSpeed * pdY;
-	}
-
-	if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height/2) / MAP_SCALE) +
-	    (int)((pX) / MAP_SCALE)]){
-	  pY -= moveSpeed * pdY;
-	}
-      }
-
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-      pX = 300.0f;
-      pY = 300.0f;
+      if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height / 2) / MAP_SCALE) +
+                       (int)((pX) / MAP_SCALE)])
+      {
+        pY += moveSpeed * pdY;
       }
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+
+      pY += moveSpeed * pdY;
+      pX += moveSpeed * pdX;
+
+      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+                       (int)((pX + 0.1 * playerSprite.getLocalBounds().width / 2) / MAP_SCALE)])
+      {
+        pX -= moveSpeed * pdX;
+      }
+
+      if (map.worldMap[map.mapX * (int)((pY) / MAP_SCALE) +
+                       (int)((pX - 0.1 * playerSprite.getLocalBounds().width / 2) / MAP_SCALE)])
+      {
+        pX -= moveSpeed * pdX;
+      }
+
+      if (map.worldMap[map.mapX * (int)((pY + 0.1 * playerSprite.getLocalBounds().height / 2) / MAP_SCALE) +
+                       (int)((pX) / MAP_SCALE)])
+      {
+        pY -= moveSpeed * pdY;
+      }
+
+      if (map.worldMap[map.mapX * (int)((pY - 0.1 * playerSprite.getLocalBounds().height / 2) / MAP_SCALE) +
+                       (int)((pX) / MAP_SCALE)])
+      {
+        pY -= moveSpeed * pdY;
+      }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+    {
+      resetPosition();
+    }
+  }
+
+  void resetPosition()
+  {
+    pX = 300.0f;
+    pY = 300.0f;
+  }
 
   sf::RectangleShape getSprite() { return playerSprite; }
 
