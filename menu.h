@@ -62,3 +62,5 @@ public:
     ~RecordWindow();
     void runWindow() override;
 };
+
+MenuWindow *createMenu();
