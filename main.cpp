@@ -118,7 +118,7 @@ int main() {
         timeOut = MAXTIMEOUT;
         level = 1;
 
-        // opção de colocar um menu principal
+        // opção de colocar um menu principal poderia ser aqui...
       }
       
       // Atualiza o mapa
@@ -129,7 +129,7 @@ int main() {
       player.pY = 300.f;
 
     }
-    
+
     // Desenho e exibição da interface do jogo
     hud.hudDraw(gameWindow,fps, map, raycast, render, player, level, timeOut);
     gameWindow.display();
