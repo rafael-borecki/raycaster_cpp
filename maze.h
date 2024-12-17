@@ -34,6 +34,11 @@ public:
 		_maze = getEmptyMap(map_x, map_y);
 	}
 
+	// Destrutor da classe
+	~Maze(){
+		delete[] _maze;	
+	}
+
     // Método que implementa a busca em profundidade para gerar o labirinto
 	void DFS(int x_origin, int y_origin, std::vector<std::pair<int,int>> &possibOuts){
 

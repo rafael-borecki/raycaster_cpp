@@ -5,13 +5,13 @@
 #include "raycaster.h"
 #include "globals.h"
 #include "hud.h"
+#include "il.h"
 
 int main() {
 
   // Criação da janela do jogo
   sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Poo proj", sf::Style::Titlebar);
-  gameWindow.setFramerateLimit(FRAME_RATE);
-  gameWindow.setPosition(sf::Vector2i(2560, 50)); 
+  gameWindow.setFramerateLimit(FRAME_RATE); 
   
   // Variáveis de tempo de jogo
   float timeOut = MAXTIMEOUT;
@@ -33,6 +33,10 @@ int main() {
   // Criação da interface do jogo
   HUD hud("./assets/font.otf", 24, sf::Color::Green);
 
+  // Criação da interface de interlevel
+  INTERLEVEL ilevel("./assets/font.otf", 24, sf::Color::Green);
+
+  // Setagem do céu do mapa
   sf::RectangleShape skybox;
   skybox.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT/2));
   skybox.setOrigin(sf::Vector2f(0,0));
@@ -92,18 +96,43 @@ int main() {
       // Diminui o tempo restante para o jogador completar o nível
       timeOut = MAXTIMEOUT/level + MINTIMEOUT;    
 
-      // AQUI DEVE ESTAR A VERIFICAÇÃO SE O JOGADOR QUER CONTINUAR OU NÃO JOGANDO!
+      // Limpeza da tela para abertura da interface entre níveis
+      gameWindow.clear({0,0,0});
+      
+      // Enquanto não selecionar sair do jogo ou continuar, exibe a interface de interlevel
+      while(!ilevel.select()){
 
+        // Atualiza a interface de interlevel
+        ilevel.navegation();
+        ilevel.select();
+
+        // Exibição da interface de interlevel
+        ilevel.ilevelDraw(gameWindow, level, timeOut);
+
+        // Atualiza a tela de interlevel
+        gameWindow.display();
+      }
+
+      if(!ilevel.continuation()){
+
+        timeOut = MAXTIMEOUT;
+        level = 1;
+
+        // opção de colocar um menu principal
+      }
+      
       // Atualiza o mapa
       map.updateMap();
 
       //reseta posição do jogador para o meio do mapa
       player.pX = 300.f;
       player.pY = 300.f;
+
     }
-   
+    
     // Desenho e exibição da interface do jogo
     hud.hudDraw(gameWindow,fps, map, raycast, render, player, level, timeOut);
     gameWindow.display();
   }
 }
+

@@ -21,10 +21,10 @@ int FRAME_RATE	  = 60;
 #define TIMER_HUDPOSITION   750,50
 #define LEVEL_HUDPOSITION   1150,50
 
-
-#define FPS_ILPOSITION     350,50
-#define TIMER_ILPOSITION   750,50
-#define LEVEL_ILPOSITION   1150,50
+#define OPT1_ILPOSITION   500,300
+#define OPT2_ILPOSITION   500,400
+#define TIMER_ILPOSITION   350,50
+#define LEVEL_ILPOSITION   950,50
 
 
 float dist(float px, float py, float rx, float ry){
