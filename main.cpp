@@ -81,6 +81,10 @@ int main() {
 
       // Caso o jogador deseje sair do jogo (voltar ao menu)
       if(!gameOver.continuation()){
+
+        // Atualiza o score do jogador no arquivo de records
+        player_infos.setScore(std::to_string(hud.getLevel()));
+        recordFile.updateFile(player_infos);
         
         // Abertura do menu
         delete menu;
@@ -107,11 +111,25 @@ int main() {
     sf::Event event;
     while (gameWindow.pollEvent(event)) {
       
-      if (event.type == sf::Event::Closed)
+      if (event.type == sf::Event::Closed){
+
+        // Atualiza o score do jogador no arquivo de records
+        player_infos.setScore(std::to_string(hud.getLevel()));
+        recordFile.updateFile(player_infos);
+
+        // Fecha a janela do jogo
         gameWindow.close();
+      }
       
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+
+        // Atualiza o score do jogador no arquivo de records
+        player_infos.setScore(std::to_string(hud.getLevel()));
+        recordFile.updateFile(player_infos);
+
+        // Fecha a janela do jogo
         gameWindow.close();
+      }
     }
 
     // Limpeza da tela
@@ -156,6 +174,10 @@ int main() {
 
       // Caso o jogador deseje sair do jogo (voltar ao menu)
       if(!iLevel.continuation()){
+        
+        // Atualiza o score do jogador no arquivo de records
+        player_infos.setScore(std::to_string(hud.getLevel()));
+        recordFile.updateFile(player_infos);
         
         // Reset do time out e do level
         hud.resetTimer();
