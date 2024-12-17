@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "file.h"
 
 void Window::setValues() {       
     sf::VideoMode userVideo = sf::VideoMode::getDesktopMode();
@@ -104,7 +105,10 @@ void RecordWindow::setValues() {
 
     _bg->setScale(scaleX, scaleY); 
 
-    string _score = "Lucien 20000";
+    PlayerInfo record_infos;
+    RecordFile recordFile("records.txt");
+    record_infos = recordFile.getRecord();
+    string _score = record_infos.getName() + " " + record_infos.getScore();
     _text.setFont(*_font);
     _text.setString(_score);
     _text.setOutlineColor(sf::Color::White);

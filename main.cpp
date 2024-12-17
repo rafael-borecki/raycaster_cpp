@@ -7,8 +7,21 @@
 #include "menu.h"               // Arquivo de cabeçalho do menu
 #include "hud.h"                // Arquivo de cabeçalho da interface do HUD          
 #include "il.h"                 // Arquivo de cabeçalho da interface de interLevel
+#include "file.h"
 
 int main() {
+  // Definição do objeto para controle do arquivo de record
+  PlayerInfo player_infos;
+  PlayerInfo record_infos;
+  RecordFile recordFile("records.txt");
+
+  // Pegando o nome do jogador
+  player_infos.setName("Airton");
+
+  // Quando finalizar a jogada, basta setar o score e chamar updateFile
+  player_infos.setScore("290");
+  recordFile.updateFile(player_infos);
+  
   // Criação do menu
   MenuWindow *menu = createMenu();
   menu->runWindow();
