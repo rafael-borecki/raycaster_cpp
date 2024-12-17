@@ -10,8 +10,8 @@
 
 int main() {
   // Criação do menu
-  MenuWindow *about = createMenu();
-  about->runWindow();
+  MenuWindow *menu = createMenu();
+  menu->runWindow();
 
   // Criação da janela do jogo
   sf::RenderWindow gameWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Poo proj", sf::Style::Titlebar);
@@ -38,7 +38,8 @@ int main() {
   HUD hud("./assets/font.otf", 24, sf::Color::Green);
 
   // Criação da interface de interlevel
-  INTERLEVEL ilevel("./assets/font.otf", 24, sf::Color::Green);
+  InterLevel iLevel("./assets/font.otf", 24, sf::Color::Green);
+  GameOver gameOver("./assets/font.otf", 24, sf::Color::Green);
 
   // Setagem do céu do mapa
   sf::RectangleShape skybox;
@@ -52,8 +53,34 @@ int main() {
     elapsed = clock.getElapsedTime();
     timeOut -= elapsed.asSeconds();
 
-    // Caso o tempo tenha acabado
+    // Caso o tempo tenha acabado (GAME OVER)
     if(timeOut <= 0){
+
+      // Limpeza da tela para abertura da interface de Game Over
+      gameWindow.clear({0,0,0});
+      
+      // Enquanto não selecionar sair do jogo ou continuar, exibe a interface de Game Over
+      while(!gameOver.select()){
+
+        // Atualiza a interface de Game Over
+        gameOver.navegation();
+        gameOver.select();
+
+        // Exibição da interface de Game Over
+        gameOver.gameOverDraw(gameWindow, level, timeOut);
+
+        // Atualiza a tela de Game Over
+        gameWindow.display();
+      }
+
+      // Caso o jogador deseje sair do jogo (voltar ao menu)
+      if(!gameOver.continuation()){
+        
+        // Abertura do menu
+        menu = createMenu();
+        menu->runWindow();
+        
+      }
 
       // Time out reset
       timeOut = MAXTIMEOUT;
@@ -104,25 +131,30 @@ int main() {
       gameWindow.clear({0,0,0});
       
       // Enquanto não selecionar sair do jogo ou continuar, exibe a interface de interlevel
-      while(!ilevel.select()){
+      while(!iLevel.select()){
 
         // Atualiza a interface de interlevel
-        ilevel.navegation();
-        ilevel.select();
+        iLevel.navegation();
+        iLevel.select();
 
         // Exibição da interface de interlevel
-        ilevel.ilevelDraw(gameWindow, level, timeOut);
+        iLevel.iLevelDraw(gameWindow, level, timeOut);
 
         // Atualiza a tela de interlevel
         gameWindow.display();
       }
 
-      if(!ilevel.continuation()){
-
+      // Caso o jogador deseje sair do jogo (voltar ao menu)
+      if(!iLevel.continuation()){
+        
+        // Level e Time out reset
         timeOut = MAXTIMEOUT;
         level = 1;
-
-        // opção de colocar um menu principal poderia ser aqui...
+        
+        // Abertura do menu
+        menu = createMenu();
+        menu->runWindow();
+        
       }
       
       // Atualiza o mapa
