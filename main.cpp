@@ -15,15 +15,11 @@ int main() {
   PlayerInfo record_infos;
   RecordFile recordFile("records.txt");
 
-  // Pegando o nome do jogador
-  player_infos.setName("Airton");
-
-  // Quando finalizar a jogada, basta setar o score e chamar updateFile
-  player_infos.setScore("290");
-  recordFile.updateFile(player_infos);
+  // Nome do jogador
+  player_infos.setName("Player1");
   
   // Criação do menu
-  MenuWindow *menu = createMenu();
+  Window *menu = createMenu();
   menu->runWindow();
 
   // Criação da janela do jogo

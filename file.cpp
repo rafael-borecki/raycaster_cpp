@@ -1,12 +1,14 @@
 #include "file.h"
 #include <algorithm>
 
+// Construtor: salva o nome do arquivo e chama leitura dele
 RecordFile::RecordFile(string name) {
     _archieveName = name;
     // Realizar a leitura do arquivo e armazenar no vector
     this->readRecordFile();
 }
 
+// Destrutor: desaloca os ponteiros para objetos PlayerInfo do vector e fecha o arquivo, caso ele esteja aberto
 RecordFile::~RecordFile() {
     if(!_players.empty()) {
         int numPlayers = _players.size();
@@ -17,6 +19,10 @@ RecordFile::~RecordFile() {
     if(_file) _file.close();
 }
 
+/* 
+Funcão que auxilia a leitura do arquivo das pontuações. Recebe uma linha do arquivo, composta por um nome e uma pontuação
+separados por um espaço. Ela separa ambos em duas strings diferentes e retorna um pair.
+*/
 pair<string,string> divideString(string line) {
     pair<string,string> values;
     values.first = "";
@@ -36,10 +42,12 @@ pair<string,string> divideString(string line) {
     return values;
 }
 
+// Realiza a leitura do arquivo de pontuações
 void RecordFile::readRecordFile() {
     pair<string,string> values;
     int cont = 0;
 
+    // Abre o arquivo caso não esteja aberto
     if(!_file.is_open()) {
         _file.open(_archieveName, ios::in | ios::out);
         if(!_file.is_open()) {
@@ -48,9 +56,10 @@ void RecordFile::readRecordFile() {
         }
     }
     
+    // Leitura
     string line;
     while(getline(_file, line)) {
-        values = divideString(line);
+        values = divideString(line);    // Separa nome e pontuação
         _players.push_back(new PlayerInfo());
         _players[cont]->setName(values.first);
         _players[cont++]->setScore(values.second);
@@ -59,6 +68,7 @@ void RecordFile::readRecordFile() {
     _file.close();
 }
 
+// Comparação de dois objetos PlayerInfo para verificar a maior pontuação entre eles
 bool operator >(const PlayerInfo &a, const PlayerInfo &b) {
     string scoreA = a.getScore();
     string scoreB = b.getScore();
@@ -68,21 +78,25 @@ bool operator >(const PlayerInfo &a, const PlayerInfo &b) {
     if(sizeA > sizeB) return true;
     if(sizeB > sizeA) return false;
 
-    // tamanhos são iguais
-    for(int i = sizeA-1; i >= 0; i--) {
-        if(int(scoreA[i] - '0') > int(scoreB[i] - '0')) return true;
-        if(int(scoreB[i] - '0') > int(scoreA[i] - '0')) return false;
+    // Tamanhos são iguais
+    for(int i = 0; i < sizeA; i++) {
+        if(scoreA[i] > scoreB[i]) return true;
+        if(scoreB[i] > scoreA[i]) return false;
     }
 
     return false;
 }
 
+// Regra para ordenação
 bool ruleSort(const PlayerInfo *a, const PlayerInfo *b) {
-    if(a->getScore() > b->getScore())
-        return true;
-    else return false;
+    return *a > *b;
 }
 
+/*
+Função para atualizar o arquivo de pontuações devido à finalização da jogada atual. Recebe as informações por
+um objeto PlayerInfo, adiciona ele no vector (que contém a as demais pontuações dada a leitura do arquivo), e o ordena.
+O vector é, então, escrito no arquivo. 
+*/
 void RecordFile::updateFile(const PlayerInfo& atual) {
     pair<string,string> values;
     int cont = 0;
@@ -95,18 +109,17 @@ void RecordFile::updateFile(const PlayerInfo& atual) {
         }
     }
     
-
+    // Realiza a leitura para garantir que os dados correspondem aos do arquivo
     if(!_players.empty()) _players.clear();
     this->readRecordFile();
+
+    // Adiciona o atual ao vector
     int tam = _players.size();
     _players.push_back(new PlayerInfo);
     _players[tam]->setName(atual.getName());
     _players[tam]->setScore(atual.getScore());
 
-    for(auto p : _players) {
-        cout << p->getName() << " " << p->getScore() << endl;
-    }
-
+    // Ordenação
     sort(_players.begin(), _players.end(), ruleSort);
 
     if(_file) _file.close(); 
@@ -114,7 +127,7 @@ void RecordFile::updateFile(const PlayerInfo& atual) {
 
     if (!_file.is_open()) {
         cerr << "Erro ao reabrir o arquivo!" << std::endl;
-        exit(-1); // Erro ao reabrir
+        exit(-1); 
     }
 
     // Escrever 10 linhas ou a quantidade existente
@@ -128,6 +141,10 @@ void RecordFile::updateFile(const PlayerInfo& atual) {
     _file.close(); // Fechar o arquivo após a escrita
 }
 
+/*
+Função que retorna o recorde. Neste caso, o primeiro elemento do vector (garantido que estará ordenado).
+Caso não haja nada no vector, retorna um objeto PlayerInfo vazio.
+*/ 
 PlayerInfo RecordFile::getRecord() {
     if(!_players.empty())
         return *_players[0];

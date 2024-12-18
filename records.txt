@@ -1,10 +1,2 @@
-Airton 5
-Airton 3
-Airton 3
-Airton 3
-Airton 3
-Rafael 290
-Airton 290
-Airton 290
-Airton 290
-Airton 290
+Player2 2
+Player3 0
