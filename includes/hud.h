@@ -22,7 +22,7 @@ class HUD {
     int _level;         // valor do level
 
     // Fonte do HUD
-    sf::Font font;      
+    sf::Font _font;      
 
   public:
 
