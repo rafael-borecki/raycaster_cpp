@@ -46,16 +46,6 @@ InterLevel::InterLevel(std::string fontPath, int characterSize, sf::Color color)
   iLevelLevels.setPosition(LEVEL_ILPOSITION);
 }
 
-// Move cursor para opção 1
-void InterLevel::moveUp(){
-  option = 1;
-}
-
-// Move cursor para opção 2
-void InterLevel::moveDown(){
-  option = 2;
-}
-
 // Navegação entre as opções
 void InterLevel::navegation(){
   
@@ -91,11 +81,6 @@ bool InterLevel::select(){
 // Retorna a continuidade do jogo
 bool InterLevel::continuation(){
   return continueGame;
-}
-
-// Retorna a fonte do texto
-sf::Font& InterLevel::getFont(){
-  return font;
 }
 
 // Desenha a interface de interlevel

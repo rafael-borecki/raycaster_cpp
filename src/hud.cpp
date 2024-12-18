@@ -67,36 +67,6 @@ void HUD::timerOfLevel()
     _timer = MAXTIMEOUT / _level + MINTIMEOUT;
 }
 
-// Reset do timer
-void HUD::resetTimer()
-{
-    _timer = MAXTIMEOUT;
-}
-
-// Reset do level
-void HUD::resetLevel()
-{
-    _level = 1;
-}
-
-// Retorna fps do jogo
-float HUD::getFps()
-{
-    return _fps;
-}
-
-// Retorna o tempo restante para terminar o nível
-float HUD::getTimer()
-{
-    return _timer;
-}
-
-// Retorna o level atual do jogo
-int HUD::getLevel()
-{
-    return _level;
-}
-
 // Desenho da HUD na tela do jogo
 void HUD::hudDraw(sf::RenderWindow &window, Map map, Raycaster raycast, std::vector<ray> rays, Player player)
 {

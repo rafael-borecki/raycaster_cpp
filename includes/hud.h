@@ -36,13 +36,13 @@ class HUD {
     void timerOfLevel();
 
     // Métodos de reset do HUD
-    void resetTimer();
-    void resetLevel();
+    void resetTimer(){_timer = MAXTIMEOUT;}
+    void resetLevel(){_level = 1;}
 
     // Métodos de acesso HUD
-    float getFps();
-    float getTimer();
-    int getLevel();
+    float getFps(){return _fps;}
+    float getTimer(){return _timer;}
+    int getLevel(){return _level;}
     
     // Setup da HUD para exposição na tela
     void hudDraw(sf::RenderWindow &window,  Map map,Raycaster raycast, std::vector<ray> rays, Player player);

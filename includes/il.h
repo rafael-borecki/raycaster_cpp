@@ -12,9 +12,6 @@ class InterLevel {
     sf::Vector2f opt1Position, opt2Position;
     sf::RectangleShape opt1Rect, opt2Rect; 
 
-    // Inteiro da posição da opção (1 e 0)
-    int option = 0;
-
     // Timer do tempo restante para termianr o nível atual do labirinto
     sf::Text iLevelTimer;
 
@@ -24,17 +21,22 @@ class InterLevel {
     // Fonte do texto
     sf::Font font;
 
+    // Inteiro da posição da opção (1 e 2)
+    int option = 0;
+
     // Booleano para verificar continuidade do jogo
     bool continueGame;
+
+    // cursor na opção 1 
+    void moveUp(){option = 1;}
+
+    // cursor na opção 2
+    void moveDown(){option = 2;}
 
   public:
 
     // Construtor da interface entre níveis
     InterLevel(std::string fontPath, int characterSize, sf::Color color);
-
-    // Movimentação do cursor de opção
-    void moveUp();
-    void moveDown();
 
     // Navegação entre as opções
     void navegation();
@@ -46,24 +48,23 @@ class InterLevel {
     bool continuation();
 
     // Retorna a fonte do texto
-    sf::Font& getFont();
+    sf::Font& getFont(){return font;}
 
     // Desenha a interface entre níveis
     void iLevelDraw(sf::RenderWindow &window, int level, int time);
 };
 
-class GameOver : public InterLevel
-{
+class GameOver : public InterLevel{
   // Texto de game over
   sf::Text gameOverText;
 
-  public:
+public:
 
-    // Construtor da interface de game over
-    GameOver(std::string fontPath, int characterSize, sf::Color color);
+  // Construtor da interface de game over
+  GameOver(std::string fontPath, int characterSize, sf::Color color);
 
-    // Desenha a interface de game over
-    void gameOverDraw(sf::RenderWindow &window,  int level, int time);
+  // Desenha a interface de game over
+  void gameOverDraw(sf::RenderWindow &window,  int level, int time);
   
 };
 
