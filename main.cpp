@@ -1,3 +1,10 @@
+/*ALUNOS
+  - Bruno Rusca Janini - 13674917
+  - Rafael Guimarães Borecki de Carvalho - 14604271
+  - Vitor Alexandre Garcia Vaz - 14611432
+*/
+
+
 #include <SFML/Graphics.hpp>
 #include "globals.h"            // Arquivo de cabeçalho das variáveis globais
 #include "map.h"                // Arquivo de cabeçalho do mapa     
