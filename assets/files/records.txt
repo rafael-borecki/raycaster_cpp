@@ -2,4 +2,9 @@ Player1 9
 Player1 6
 Player1 4
 Player2 2
-Player3 0
+Player1 2
+Player1 2
+Player1 1
+Player1 1
+Player1 1
+Player1 1

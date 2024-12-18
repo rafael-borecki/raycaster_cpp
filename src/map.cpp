@@ -75,12 +75,15 @@ void Map::drawMap(sf::RenderWindow &window) {
             {
                 drawRectangle(x, y, window, sf::Color{0, 0, 255});
             }
-
-            if (worldMap[y * mapX + x] == 0)
+            if (worldMap[y * mapX + x] == 1) // parede
+            {
+                drawRectangle(x, y, window, sf::Color{76, 20, 0});
+            }
+            if (worldMap[y * mapX + x] == 0) // caminho
             {
                 drawRectangle(x, y, window, sf::Color{180, 180, 180});
             }
-            if (worldMap[y * mapX + x] == 7)
+            if (worldMap[y * mapX + x] == 7) // saída
             {
                 drawRectangle(x, y, window, sf::Color{180, 180, 180});
             }
