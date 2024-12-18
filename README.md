@@ -1,17 +1,73 @@
-Ainda vamos precisar passar do .h para o .cpp + .h, fiz tudo so com .h lol
+# Raycaster C++
 
-Problemas atuais: 
+## Participantes
 
-- Nao sei como adiconar NPCs ou props com esse método de renderização, mas deve ser possível.  
+- Nome do Participante 1
+- Nome do Participante 2
+- Nome do Participante 3
 
-- ~~Quando um raio sai do jogador e o angulo desse raio é 0,90,180 ou 270 graus fica um buraco.~~
-    - Acho que existe a chance dessa correção gerar buffer overflow, mas não está dando.
+## Funcionamento do Jogo
 
-- Aleatoriamente exite a chance de acontecer um buffer overflow por causa do vector usado no método draw3D da Raycaster, eu acho.  
+Este projeto é um jogo de raycasting desenvolvido em C++. O raycasting é uma técnica de renderização que simula a projeção de raios para criar uma perspectiva 3D a partir de um mapa 2D.
 
-- Talvez de para melhorar as proporções X e Y, mas acho que está ok.  
+### Controles do Jogo
 
-- A referência do ângulos está meio errada, mas da pra arrumar, se tivermos paciência. Mas funciona igual.  
+- **W**: Mover para frente
+- **S**: Mover para trás
+- **A**: Rotacionar visão para a direita
+- **D**: Rotacionar visão para a esquerda
+- **G**: Voltar ao spawn (centro do maoa)
 
-- ~~O mundo ta renderizando na frente do mapa.~~  
+### Objetivos
+
+- Encontrar a saída do labirinto.
+- Completar o trajeto de saída antes que o tempo se esgote
+
+### Como Executar
+
+1. Clone o repositório:
+    ```sh
+    git clone <URL_DO_REPOSITORIO>
+    ```
+2. Navegue até o diretório do projeto:
+    ```sh
+    cd raycaster_cpp
+    ```
+3. Compile o projeto:
+    ```sh
+    make all
+    ```
+4. Execute o jogo:
+    ```sh
+    make run
+    ```
+    ou
+   ```sh
+   ./game
+   ```
+
+   
+
+### Dependências
+
+- SFML (Simple and Fast Multimedia Library)
+
+Certifique-se de ter a biblioteca SFML instalada no seu sistema antes de compilar o projeto: <a href = "https://www.sfml-dev.org/download.php"> Download SFML</a>
+
+
+## Resumo do projeto
+![mainRaycaster](https://github.com/user-attachments/assets/55940140-3069-4e64-83b2-69c19954b2d5)
+
+## Jogo em funcionamento
+
+### Menu
+![menu](https://github.com/user-attachments/assets/4091cf8d-d8fa-41c9-b42a-eb191f8a86c9)
+
+### Interface de Jogo
+![jogoRenderizado](https://github.com/user-attachments/assets/a13ead60-d8a6-44d6-910f-67bbeacd62fc)
+
+### Saída do mapa
+![miniMapa](https://github.com/user-attachments/assets/410a4f19-243d-4c27-8816-0e961f3608a1)
+![saidaMapa](https://github.com/user-attachments/assets/175062b5-0619-4359-9a20-23595ae804ec)
+
 
