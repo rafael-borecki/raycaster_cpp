@@ -54,7 +54,8 @@ std::vector<ray> Raycaster::renderLines(sf::RenderWindow &window, Player player,
     ray vertical;
     std::vector<ray> nearest;
     float one_rad = ONE_RAD;
-    float pAng = (-player.playerSprite.getRotation() + (FOV / 2)) * one_rad;
+    sf::RectangleShape playerSprite = player.getSprite();
+    float pAng = (-playerSprite.getRotation() + (FOV / 2)) * one_rad;
 
     // O efeito fish eye é uma consequencia do algoritmo utilizado para o raycast,
     // entretanto é feita uma correção "achatando" as partes arrendondadas.
@@ -63,7 +64,7 @@ std::vector<ray> Raycaster::renderLines(sf::RenderWindow &window, Player player,
     // Loop responsavel por varrer o campo de visao.
     for (int i = (FOV / 2); i > -(FOV / 2); i--) {
         pAng -= one_rad;
-        fixFishEye = player.pAng + pAng;
+        fixFishEye = player.getAng('r') + pAng;
         if (fixFishEye < 0)
             fixFishEye += 2 * PI;
 
@@ -113,36 +114,36 @@ ray Raycaster::scanHorizontal(sf::RenderWindow &window, Player player, Map map, 
     float Tan = 1 / tan(rayAng);
 
     if (sin(rayAng) > 0.001) {
-        rayY = (((int)player.pY / MAP_SCALE) * MAP_SCALE) - 0.001f;
-        rayX = (player.pY - rayY) * Tan + player.pX;
+        rayY = (((int)player.getPos('y') / MAP_SCALE) * MAP_SCALE) - 0.001f;
+        rayX = (player.getPos('y') - rayY) * Tan + player.getPos('x');
         yOffset = -MAP_SCALE;
         xOffset = -yOffset * Tan;
     } // looking up
 
     else if (sin(rayAng) < -0.001) {
-        rayY = (((int)player.pY / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
-        rayX = (player.pY - rayY) * Tan + player.pX;
+        rayY = (((int)player.getPos('y') / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
+        rayX = (player.getPos('y') - rayY) * Tan + player.getPos('x');
         yOffset = MAP_SCALE;
         xOffset = -yOffset * Tan;
     } // looking down
 
     else if ((-(rayAng) < 0.001f) || (-(rayAng) > 2 * PI - 0.001f)) {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         xOffset = MAP_SCALE;
         yOffset = 0;
     }
 
     else if ((-(rayAng) > PI - 0.001f) && (-(rayAng) < PI + 0.001f)) {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         xOffset = -MAP_SCALE;
         yOffset = 0;
     }
 
     else {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         depth = MAP_X;
     }
 
@@ -164,7 +165,7 @@ ray Raycaster::scanHorizontal(sf::RenderWindow &window, Player player, Map map, 
 
     horizontal.coordinates.x = rayX;
     horizontal.coordinates.y = rayY;
-    horizontal.distance = dist(player.pX, player.pY, rayX, rayY);
+    horizontal.distance = dist(player.getPos('x'), player.getPos('y'), rayX, rayY);
     horizontal.horv = 0;
     horizontal.index = index;
 
@@ -182,36 +183,36 @@ ray Raycaster::scanVertical(sf::RenderWindow &window, Player player, Map map, fl
     float nTan = tan(rayAng);
 
     if (cos(rayAng) > 0.001) {
-        rayX = (((int)player.pX / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
-        rayY = (player.pX - rayX) * nTan + player.pY;
+        rayX = (((int)player.getPos('x') / MAP_SCALE) * MAP_SCALE) + MAP_SCALE;
+        rayY = (player.getPos('x') - rayX) * nTan + player.getPos('y');
         xOffset = MAP_SCALE;
         yOffset = -xOffset * nTan;
     }
 
     else if (cos(rayAng) < -0.001) {
-        rayX = (((int)player.pX / MAP_SCALE) * MAP_SCALE) - 0.001f;
-        rayY = (player.pX - rayX) * nTan + player.pY;
+        rayX = (((int)player.getPos('x') / MAP_SCALE) * MAP_SCALE) - 0.001f;
+        rayY = (player.getPos('x') - rayX) * nTan + player.getPos('y');
         xOffset = -MAP_SCALE;
         yOffset = -xOffset * nTan;
     }
 
     else if ((-(rayAng) > (PI / 2) - 0.001) && (-(rayAng) < (PI / 2) + 0.001f)) {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         yOffset = MAP_SCALE;
         xOffset = 0;
     }
 
     else if ((-(rayAng) > (3 * PI / 2) - 0.001f) && (-(rayAng) < (3 * PI / 2) + 0.001f)) {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         yOffset = -MAP_SCALE;
         xOffset = 0;
     }
 
     else {
-        rayX = player.pX;
-        rayY = player.pY;
+        rayX = player.getPos('x');
+        rayY = player.getPos('y');
         depth = MAP_X;
     }
 
@@ -236,10 +237,10 @@ ray Raycaster::scanVertical(sf::RenderWindow &window, Player player, Map map, fl
 
     vertical.coordinates.x = rayX;
     vertical.coordinates.y = rayY;
-    vertical.distance = dist(player.pX, player.pY, rayX, rayY);
+    vertical.distance = dist(player.getPos('x'), player.getPos('y'), rayX, rayY);
     vertical.horv = 1;
     vertical.index = index;
-    // drawLines(window, sf::Vector2f(player.pX, player.pY), vertical.coordinates, sf::Color::Red);
+    // drawLines(window, sf::Vector2f(player.getPos('x'), player.getPos('y')), vertical.coordinates, sf::Color::Red);
     
     return vertical;
 }

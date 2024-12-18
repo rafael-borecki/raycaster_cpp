@@ -8,14 +8,14 @@
 
 class Map
 {
-public:
 	int mapX = MAP_X;
 	int mapY = MAP_Y;
 	int mapS = MAP_SCALE;
+public:
 	char worldMap[MAP_Y * MAP_X + 50];
-
 	Map(int id);
 	void drawMap(sf::RenderWindow &window);
 	void drawRectangle(int i, int j, sf::RenderWindow &window, sf::Color color);
 	void updateMap();
+	int getMapInfo(char info);
 };

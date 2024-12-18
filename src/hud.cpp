@@ -80,10 +80,10 @@ void HUD::hudDraw(sf::RenderWindow &window, Map map, Raycaster raycast, std::vec
     map.drawMap(window);
 
     // Desenha o jogador
-    window.draw(player.playerSprite);
+    window.draw(player.getSprite());
 
     // Desenha as linhas do raycaster
-    raycast.drawLines(window, sf::Vector2f(player.pX, player.pY), rays, sf::Color::Yellow);
+    raycast.drawLines(window, sf::Vector2f(player.getPos('x'), player.getPos('y')), rays, sf::Color::Yellow);
 
     // Desenha o FPS
     window.draw(hudFps);

@@ -48,16 +48,14 @@ InterLevel::InterLevel(std::string fontPath, int characterSize, sf::Color color)
 
 // Navegação entre as opções
 void InterLevel::navegation(){
-  
   // Verifica se a tecla de cima (opt 1) foi pressionada, se sim move para cima o cursor de opção
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
     _opt1Rect.setFillColor(sf::Color::White);
     _opt2Rect.setFillColor(sf::Color::Black);
     moveUp();
   }
-
   // Verifica se a tecla de baixo (opt 2) foi pressionada, se sim move para baixo o cursor de opção
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
     _opt2Rect.setFillColor(sf::Color::White);
     _opt1Rect.setFillColor(sf::Color::Black);
     moveDown();

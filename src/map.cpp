@@ -58,6 +58,16 @@ Map::Map(int id) {
     }
 }
 
+int Map::getMapInfo(char info) {
+  if(info == 'x')
+    return mapX;
+  if(info == 'y')
+    return mapY;
+  if(info == 's')
+    return mapS;
+  return -1;
+}  
+
 void Map::drawMap(sf::RenderWindow &window) {
     for (int x = 0; x < mapX; x++)
     {
