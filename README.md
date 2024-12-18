@@ -2,9 +2,9 @@
 
 ## Participantes
 
-- Nome do Participante 1
-- Nome do Participante 2
-- Nome do Participante 3
+- Bruno Rusca Janini
+- Rafael Guimarães Borecki de Carvalho
+- Vitor Alexandre Garcia Vaz
 
 ## Funcionamento do Jogo
 
@@ -56,6 +56,8 @@ Certifique-se de ter a biblioteca SFML instalada no seu sistema antes de compila
 
 
 ## Resumo do projeto
+
+### Fluxograma do loop de jogo
 ![mainRaycaster](https://github.com/user-attachments/assets/55940140-3069-4e64-83b2-69c19954b2d5)
 
 ## Jogo em funcionamento
