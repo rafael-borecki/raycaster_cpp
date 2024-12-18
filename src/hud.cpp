@@ -10,10 +10,10 @@ HUD::HUD(std::string fontPath, int characterSize, sf::Color color)
     _level = 1;
 
     // Setagem da fontes escolhida para o hud
-    font.loadFromFile(fontPath);
-    hudFps.setFont(font);
-    hudTimer.setFont(font);
-    hudLevels.setFont(font);
+    _font.loadFromFile(fontPath);
+    hudFps.setFont(_font);
+    hudTimer.setFont(_font);
+    hudLevels.setFont(_font);
 
     // Setagem do tamanho dos caracteres
     hudFps.setCharacterSize(characterSize);
@@ -85,7 +85,7 @@ void HUD::hudDraw(sf::RenderWindow &window, Map map, Raycaster raycast, std::vec
     // Desenha as linhas do raycaster
     raycast.drawLines(window, sf::Vector2f(player.getPos('x'), player.getPos('y')), rays, sf::Color::Yellow);
 
-    // Desenha o FPS
+    // Desenha o FPS, o timer e o level de jogo
     window.draw(hudFps);
     window.draw(hudTimer);
     window.draw(hudLevels);
