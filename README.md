@@ -27,7 +27,7 @@ Este projeto é um jogo de raycasting desenvolvido em C++. O raycasting é uma t
 
 1. Clone o repositório:
     ```sh
-    git clone <URL_DO_REPOSITORIO>
+    git clone "https://github.com/rafael-borecki/raycaster_cpp.git"
     ```
 2. Navegue até o diretório do projeto:
     ```sh
