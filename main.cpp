@@ -30,8 +30,7 @@ int main() {
   sf::Clock clock;
   
   // Criação do mapa de jogo
-  int mapId = 3;
-  Map map(mapId);
+  Map map(MAPID);
 
   // Criação do jogador
   Player player(300.f, 300.f);

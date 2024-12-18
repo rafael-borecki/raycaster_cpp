@@ -19,15 +19,23 @@ extern const int FRAME_RATE;
 #define MAP_Y         24
 #define FOV 	      60
 
+// Defines main
 #define MAXTIMEOUT    120.f
 #define MINTIMEOUT    30.f
+#define MAPID         3
 
+// Defines HUD
 #define FPS_HUDPOSITION     350,50
 #define TIMER_HUDPOSITION   750,50
 #define LEVEL_HUDPOSITION   1150,50
 
-#define OPT1_ILPOSITION   500,300
-#define OPT2_ILPOSITION   500,400
+// Defines IL
+#define OPT1_TEXT_POSITION   500,300
+#define OPT2_TEXT_POSITION   500,400
+#define OPT1_RECT_POSITION   480,300
+#define OPT2_RECT_POSITION   480,400
+#define OPT1_RECT_SIZE       20,50
+#define OPT2_RECT_SIZE       20,50
 #define TIMER_ILPOSITION   350,50
 #define LEVEL_ILPOSITION   950,50
 
