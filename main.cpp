@@ -13,7 +13,7 @@ int main() {
   // Definição do objeto para controle do arquivo de record
   PlayerInfo player_infos;
   PlayerInfo record_infos;
-  RecordFile recordFile("records.txt");
+  RecordFile recordFile("./assets/files/records.txt");
 
   // Nome do jogador
   player_infos.setName("Player1");
@@ -38,11 +38,11 @@ int main() {
   Raycaster raycast;
 
   // Criação da interface do jogo
-  HUD hud("./assets/font.otf", 24, sf::Color::Green);
+  HUD hud("./assets/fonts/font.otf", 24, sf::Color::Green);
 
   // Criação da interface de interlevel
-  InterLevel iLevel("./assets/font.otf", 24, sf::Color::Green);
-  GameOver gameOver("./assets/font.otf", 24, sf::Color::Green);
+  InterLevel iLevel("./assets/fonts/font.otf", 24, sf::Color::Green);
+  GameOver gameOver("./assets/fonts/font.otf", 24, sf::Color::Green);
 
   // Setagem do céu do mapa
   sf::RectangleShape skybox;
