@@ -62,7 +62,7 @@ std::vector<ray> Raycaster::renderLines(sf::RenderWindow &window, Player player,
     float fixFishEye;
 
     // Loop responsavel por varrer o campo de visao.
-    for (int i = (FOV / 2); i > -(FOV / 2); i--) {
+    for (int i = (FOV / 2); i >= -(FOV / 2); i--) {
         pAng -= one_rad;
         fixFishEye = player.getAng('r') + pAng;
         if (fixFishEye < 0)
