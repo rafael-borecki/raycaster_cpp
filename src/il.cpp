@@ -133,11 +133,11 @@ std::string catchPlayerName(){
   title.setCharacterSize(48);
   title.setPosition(500, 200);
 
-  // Texto de exibição do nome do jogador até então digitado + configuração
+  // Texto de exibição do nome do jogador até então digitado
   sf::Text textName;
   textName.setFillColor(sf::Color::White);
   textName.setCharacterSize(24);
-  textName.setPosition(500, 350);
+  textName.setPosition(SCREEN_WIDTH / 2, 350); // posição do texto na tela
 
   // Retânqulo para exibição do nome do jogador
   sf::RectangleShape rect;
@@ -193,9 +193,8 @@ std::string catchPlayerName(){
     textName.setString(playerName); // Atualiza o texto com o nome digitado
 
     // Centralziação de texto na tela
-    sf::FloatRect textNameRect = textName.getLocalBounds();
-    textName.setOrigin(textNameRect.width/2, textNameRect.height/2);
-    textName.setPosition(window.getSize().x / 2, 350);
+    sf::FloatRect textNameRect = textName.getLocalBounds(); // armazenar as dimensões do texto
+    textName.setOrigin(textNameRect.width/2, textNameRect.height/2); // seta origem no centro do texto
 
 
     window.clear();       // Limpa a tela para atualização do nome digitado

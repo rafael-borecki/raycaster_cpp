@@ -67,4 +67,5 @@ public:
   
 };
 
+// Função para captura do nome do jogador
 std::string catchPlayerName();
