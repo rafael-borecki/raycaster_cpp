@@ -1,10 +1,5 @@
-Player1 9
-Player1 6
-Player1 4
-Player1 3
-Player2 2
-Player1 2
-Player1 2
-Player1 2
-Player1 2
-Vitor 2
+Vitor Alexandre1
+Vitor 1
+Vitor 1
+Vitor_Alexandre 1
+ 

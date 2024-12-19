@@ -178,10 +178,12 @@ std::string catchPlayerName(){
         if(event.text.unicode == '\b' && !playerName.empty())
           playerName.pop_back();
         
-        // Se o caractere digitado for um caractere alfanumérico, adiciona ao nome
-        else if(event.text.unicode < 128 && playerName.size() < 30)
-          playerName += event.text.unicode;
-
+        /* Se o caractere adicionado for alfanumérico, diferente de espaço (" ") e 
+        *a string for menor que 30 caracteres, adiciona o caractere à string
+        */
+        else if(event.text.unicode < 128 &&  event.text.unicode != 32 && playerName.size() < 30){
+            playerName += event.text.unicode;
+        }
       }
 
       // Caso o evento seja de apertar a tecla enter, fecha a janela
