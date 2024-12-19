@@ -14,8 +14,8 @@ Este projeto é um jogo de raycasting desenvolvido em C++. O raycasting é uma t
 
 - **W**: Mover para frente
 - **S**: Mover para trás
-- **A**: Rotacionar visão para a direita
-- **D**: Rotacionar visão para a esquerda
+- **A**: Rotacionar visão para a esquerda
+- **D**: Rotacionar visão para a direita
 - **G**: Voltar ao spawn (centro do maoa)
 
 ### Objetivos
@@ -61,6 +61,13 @@ Certifique-se de ter a biblioteca SFML instalada no seu sistema antes de compila
 ![mainRaycaster](https://github.com/user-attachments/assets/55940140-3069-4e64-83b2-69c19954b2d5)
 
 ## Jogo em funcionamento
+### Login
+
+O jogador deve digitar seu nickname e pressionar enter
+
+![nome](https://github.com/user-attachments/assets/d8aefb77-1afa-47c4-8043-0d981cc6b615)
+
+
 
 ### Menu
 ![menu](https://github.com/user-attachments/assets/4091cf8d-d8fa-41c9-b42a-eb191f8a86c9)
