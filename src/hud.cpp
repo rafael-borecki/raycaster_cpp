@@ -44,7 +44,7 @@ void HUD::updateTimer(sf::Clock &clock)
     // Atualiza o timer de acordo com a passagem do tempo de jogo em determiando level
     _timer -= clock.getElapsedTime().asSeconds();
 
-    // Se houver menos que 120 segundos pra terminar, muda a cor do timer
+    // Se houver menos que 120 segundos pra terminar, muda a cor do timer conforme o tempo restante diminui
     if (_timer <= 120)
         hudTimer.setFillColor(sf::Color::Yellow);
 
@@ -61,7 +61,7 @@ void HUD::updateLevel()
     _level++;
 }
 
-// Seta o time Out para p level atual de jogo
+// Seta o time Out para para o level atual de jogo
 void HUD::timerOfLevel()
 {
     _timer = MAXTIMEOUT / _level + MINTIMEOUT;
@@ -71,7 +71,7 @@ void HUD::timerOfLevel()
 void HUD::hudDraw(sf::RenderWindow &window, Map map, Raycaster raycast, std::vector<ray> rays, Player player)
 {
 
-    // Set do FPS
+    // Set do FPS, Time out e Level do jogo
     hudFps.setString("FPS: " + std::to_string(_fps));
     hudTimer.setString("Time out: " + std::to_string((int)_timer));
     hudLevels.setString("Level: " + std::to_string(_level));
@@ -90,3 +90,5 @@ void HUD::hudDraw(sf::RenderWindow &window, Map map, Raycaster raycast, std::vec
     window.draw(hudTimer);
     window.draw(hudLevels);
 }
+
+

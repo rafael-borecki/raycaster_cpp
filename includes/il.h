@@ -67,3 +67,4 @@ public:
   
 };
 
+std::string catchPlayerName();

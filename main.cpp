@@ -13,17 +13,25 @@
 #include "raycaster.h"          // Arquivo de cabeçalho do raycaster
 #include "menu.h"               // Arquivo de cabeçalho do menu
 #include "hud.h"                // Arquivo de cabeçalho da interface do HUD          
-#include "il.h"                 // Arquivo de cabeçalho da interface de interLevel
-#include "file.h"
+#include "file.h"               // Arquivo de cabeçalho do controle do arquivo de record
+
+/* Arquivo de cabeçalho das interfaces intermediárias
+* -> InterLevel: interface entre níveis
+* -> GameOver: interface de Game Over
+* -> catchPlayerName: função para captura do nome do jogador
+*/
+#include "il.h"                 
+
 
 int main() {
+
   // Definição do objeto para controle do arquivo de record
   PlayerInfo player_infos;
   PlayerInfo record_infos;
   RecordFile recordFile("./assets/files/records.txt");
 
-  // Nome do jogador
-  player_infos.setName("Player1");
+  // Obtemos nome do jogador
+  player_infos.setName(catchPlayerName());
   
   // Criação do menu
   Window *menu = createMenu();
@@ -205,4 +213,3 @@ int main() {
     gameWindow.display();
   }
 }
-
