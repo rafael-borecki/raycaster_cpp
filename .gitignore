@@ -1,3 +1,4 @@
 game
-obj/
+obj/*
+!obj/README.md
 .vscode
